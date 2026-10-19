@@ -1,0 +1,48 @@
+{
+  "domain": "forestry",
+  "robots": [
+    "FellerRobot",
+    "HaulRobot"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "mutual_exclusion",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "conditional_response_liveness",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "feller": [
+        "feller.TreeFelled"
+      ],
+      "hauler": [
+        "hauler.Collect"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> feller.TreeFelled",
+        "comment": "Goal preserved: feller can still reach TreeFelled",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> hauler.Collect",
+        "comment": "Goal preserved: hauler can still reach Collect",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

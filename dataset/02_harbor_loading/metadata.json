@@ -1,0 +1,56 @@
+{
+  "model": "02_harbor_loading",
+  "domain": "harbor logistics",
+  "robots": [
+    "CraneBot",
+    "TransportAGV"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "mutual_exclusion",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "ordering_prerequisite",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "queries": {
+    "P1": {
+      "formula": "A[] not (crane.Swing && agv.LoadZone)",
+      "expected": "FAIL"
+    },
+    "P2": {
+      "formula": "A[] (agv.Depart imply cargo_loaded)",
+      "expected": "FAIL"
+    }
+  },
+  "benchmark_stage": "faulty_only",
+  "goal_reachability": {
+    "goal_locations": {
+      "crane": [
+        "crane.Done"
+      ],
+      "agv": [
+        "agv.Done"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> crane.Done",
+        "comment": "Goal preserved: crane can still reach Done",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> agv.Done",
+        "comment": "Goal preserved: agv can still reach Done",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

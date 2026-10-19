@@ -1,0 +1,50 @@
+{
+  "mission": "29_dairy_farm_automation",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] (milker.MilkCycle imply milker.x <= 5)",
+    "A[] (feeder.CrossGate imply gate_clear)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FIXED",
+  "attempts_used": 3,
+  "final_failing": [],
+  "final_passing": [
+    "A[] (milker.MilkCycle imply milker.x <= 5)",
+    "A[] (feeder.CrossGate imply gate_clear)",
+    "E<> milker.Done",
+    "E<> feeder.Feed"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 3,
+      "n_passing": 1,
+      "regressions": [
+        3,
+        4
+      ],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": false
+    },
+    {
+      "attempt": 3,
+      "n_failing": 0,
+      "n_passing": 4,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 276.90498089790344
+}

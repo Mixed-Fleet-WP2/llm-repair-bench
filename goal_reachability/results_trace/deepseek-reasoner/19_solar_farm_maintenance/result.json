@@ -1,0 +1,33 @@
+{
+  "mission": "19_solar_farm_maintenance",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] (cleaner.CleanPanel imply thermal_scan_done)",
+    "A[] (cleaner.CleanPanel imply cleaner.t <= 6)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FIXED",
+  "attempts_used": 1,
+  "final_failing": [],
+  "final_passing": [
+    "A[] (cleaner.CleanPanel imply thermal_scan_done)",
+    "A[] (cleaner.CleanPanel imply cleaner.t <= 6)",
+    "E<> drone.Done",
+    "E<> cleaner.Done"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 0,
+      "n_passing": 4,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 73.26376461982727
+}

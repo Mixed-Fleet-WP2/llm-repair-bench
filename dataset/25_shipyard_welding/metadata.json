@@ -1,0 +1,48 @@
+{
+  "domain": "shipyard manufacturing",
+  "robots": [
+    "WeldingRobot",
+    "InspectionAMR"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "mutual_exclusion",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "time_bounded_constraint",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "welder": [
+        "welder.CoolingZone"
+      ],
+      "inspection": [
+        "inspection.InspectJoint"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> welder.CoolingZone",
+        "comment": "Goal preserved: welder can still reach CoolingZone",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> inspection.InspectJoint",
+        "comment": "Goal preserved: inspection can still reach InspectJoint",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

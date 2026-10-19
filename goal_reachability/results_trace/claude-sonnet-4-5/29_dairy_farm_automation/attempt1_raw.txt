@@ -1,0 +1,52 @@
+I'll analyze each failing query step by step:
+
+**FAILING QUERY 1: `A[] (milker.MilkCycle imply milker.x <= 5)`**
+
+Trace analysis:
+- State [0]: milker.Idle, x=0
+- State [1]: milker.MilkCycle, x=0 (transition fired with assignment x=0)
+- State [2]: milker.MilkCycle, feeder transitions to CrossGate
+- State [3]: milker.MilkCycle with clock constraint showing #time - #t(0) ≤ 8, meaning time can advance up to 8
+
+The issue: MilkCycle has invariant `x <= 8`, which allows the clock to reach values beyond 5. The query requires that whenever in MilkCycle, x must be ≤ 5. 
+
+**Root cause**: The invariant on MilkCycle is too loose (8) when the query requires it to be at most 5.
+
+**Fix**: Change the invariant on MilkCycle from `x <= 8` to `x <= 5`.
+
+**FAILING QUERY 2: `A[] (feeder.CrossGate imply gate_clear)`**
+
+Trace analysis:
+- State [0]: both Idle, gate_clear=0
+- State [1]: feeder.CrossGate, gate_clear=0 (violation!)
+
+The issue: The feeder transitions from Idle to CrossGate with no guard checking gate_clear. At that moment gate_clear=0 (false), violating the query.
+
+**Root cause**: The transition feeder.Idle -> feeder.CrossGate has no guard requiring gate_clear to be true.
+
+**Fix**: Add guard `gate_clear` on the transition from feeder.Idle to feeder.CrossGate.
+
+Now I must verify these fixes don't break the passing queries:
+- `E<> milker.Done`: milker can still reach Done (goes Idle->MilkCycle->Done when x>=6, but now must exit MilkCycle by x=5, so need to adjust the guard to x>=5)
+- Wait, that's a problem. If MilkCycle has invariant x<=5 but the outgoing transition requires x>=6, the transition is unreachable!
+
+Let me reconsider: The query says x must be ≤ 5 while IN MilkCycle. The guard x>=6 on the exit means we must exit at exactly x=6, but the invariant x<=8 allows staying longer. Actually, to satisfy "x <= 5 while in MilkCycle", we need the outgoing transition to fire NO LATER than x=5. So the guard should be x>=5 (earliest exit at 5) AND the invariant should be x<=5 (must exit by 5).
+
+But wait - looking more carefully: gate_clear is set to true on the transition OUT of MilkCycle. For query 2 to pass, gate_clear must be true BEFORE feeder enters CrossGate. So the milker must complete its MilkCycle before the feeder tries to cross.
+
+Let me reconsider the coordination: The milker sets gate_clear=true when exiting MilkCycle (after x>=6 currently). The feeder needs gate_clear to be true before entering CrossGate. For query 1, x must be ≤5 while in MilkCycle, so the milker must exit by x=5, not x=6.
+
+**Corrected fixes**:
+1. MilkCycle invariant: change to `x <= 5`
+2. MilkCycle->Done guard: change to `x >= 5` (must exit at x=5)
+3. Idle->CrossGate (feeder): add guard `gate_clear`
+
+<?xml version='1.0' encoding='utf-8'?>
+<nta>
+<declaration>
+bool gate_clear = false;
+</declaration><template><name>MilkingRobot</name><declaration>clock x;</declaration><location id="id0" x="0" y="0"><name x="-15" y="-30">Idle</name><urgent /></location><location id="id1" x="220" y="0"><name x="185" y="-30">MilkCycle</name><label kind="invariant" x="190" y="25">x &lt;= 5</label></location><location id="id2" x="440" y="0"><name x="420" y="-30">Done</name></location><init ref="id0" /><transition><source ref="id0" /><target ref="id1" /><label kind="assignment" x="75" y="-20">x = 0</label></transition><transition><source ref="id1" /><target ref="id2" /><label kind="guard" x="275" y="-35">x &gt;= 5</label><label kind="assignment" x="245" y="15">gate_clear = true</label></transition></template><template><name>FeedAMR</name><declaration>clock y;</declaration><location id="id10" x="0" y="220"><name x="-15" y="190">Idle</name><urgent /></location><location id="id11" x="220" y="220"><name x="180" y="190">CrossGate</name><label kind="invariant" x="190" y="245">y &lt;= 2</label></location><location id="id12" x="440" y="220"><name x="410" y="190">Feed</name></location><init ref="id10" /><transition><source ref="id10" /><target ref="id11" /><label kind="guard" x="75" y="175">gate_clear</label><label kind="assignment" x="75" y="205">y = 0</label></transition><transition><source ref="id11" /><target ref="id12" /><label kind="guard" x="275" y="185">y &gt;= 1</label></transition></template><system>
+milker = MilkingRobot();
+feeder = FeedAMR();
+system milker, feeder;
+</system><queries><query><formula>A[] (milker.MilkCycle imply milker.x &lt;= 5)</formula><comment /></query><query><formula>A[] (feeder.CrossGate imply gate_clear)</formula><comment /></query><query><formula>E&lt;&gt; milker.Done</formula><comment /></query><query><formula>E&lt;&gt; feeder.Feed</formula><comment /></query></queries></nta>

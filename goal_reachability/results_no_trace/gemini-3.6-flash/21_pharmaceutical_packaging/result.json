@@ -1,0 +1,33 @@
+{
+  "mission": "21_pharmaceutical_packaging",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] (packing.PickBatch imply quality_checked)",
+    "A[] (packing.EnterSterileZone imply sterile_zone_ready)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FIXED",
+  "attempts_used": 1,
+  "final_failing": [],
+  "final_passing": [
+    "A[] (packing.PickBatch imply quality_checked)",
+    "A[] (packing.EnterSterileZone imply sterile_zone_ready)",
+    "E<> inspection.CheckComplete",
+    "E<> packing.Pack"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 0,
+      "n_passing": 4,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 42.98841953277588
+}

@@ -1,0 +1,33 @@
+{
+  "mission": "06_disaster_response",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] (ugv.EnterZone imply map_done)",
+    "A[] (ugv.Search imply !hazard_active)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FIXED",
+  "attempts_used": 1,
+  "final_failing": [],
+  "final_passing": [
+    "A[] (ugv.EnterZone imply map_done)",
+    "A[] (ugv.Search imply !hazard_active)",
+    "E<> drone.Done",
+    "E<> ugv.Done"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 0,
+      "n_passing": 4,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 54.733129262924194
+}

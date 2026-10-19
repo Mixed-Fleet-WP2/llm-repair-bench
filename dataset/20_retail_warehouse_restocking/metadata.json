@@ -1,0 +1,48 @@
+{
+  "domain": "retail warehouse",
+  "robots": [
+    "ShelfScanner",
+    "RestockAMR"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "missing_guard",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "conditional_response_liveness",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "scanner": [
+        "scanner.ShelfVerified"
+      ],
+      "amr": [
+        "amr.Restock"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> scanner.ShelfVerified",
+        "comment": "Goal preserved: scanner can still reach ShelfVerified",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> amr.Restock",
+        "comment": "Goal preserved: amr can still reach Restock",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

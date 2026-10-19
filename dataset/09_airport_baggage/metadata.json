@@ -1,0 +1,56 @@
+{
+  "model": "09_airport_baggage",
+  "domain": "airport baggage handling",
+  "robots": [
+    "ScannerBot",
+    "BaggageTug"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "ordering_prerequisite",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "conditional_response_liveness",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "queries": {
+    "P1": {
+      "formula": "A[] (tug.Pickup imply scan_done)",
+      "expected": "FAIL"
+    },
+    "P2": {
+      "formula": "scanner.ScanDone --> tug.Deliver",
+      "expected": "FAIL"
+    }
+  },
+  "benchmark_stage": "faulty_only",
+  "goal_reachability": {
+    "goal_locations": {
+      "scanner": [
+        "scanner.ScanDone"
+      ],
+      "tug": [
+        "tug.Done"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> scanner.ScanDone",
+        "comment": "Goal preserved: scanner can still reach ScanDone",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> tug.Done",
+        "comment": "Goal preserved: tug can still reach Done",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

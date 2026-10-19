@@ -1,0 +1,57 @@
+{
+  "mission": "22_airport_runway_inspection",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] not (drone.ScanRunway && vehicle.RunwayEntry)",
+    "A[] (vehicle.RunwayEntry imply vehicle.t <= 5)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FAILED",
+  "attempts_used": 3,
+  "final_failing": [
+    "A[] not (drone.ScanRunway && vehicle.RunwayEntry)",
+    "A[] (vehicle.RunwayEntry imply vehicle.t <= 5)"
+  ],
+  "final_passing": [
+    "E<> drone.Done",
+    "E<> vehicle.RepairMark"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 3,
+      "n_passing": 1,
+      "regressions": [
+        3,
+        4
+      ],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 3,
+      "n_passing": 1,
+      "regressions": [
+        3,
+        4
+      ],
+      "llm_valid": true
+    },
+    {
+      "attempt": 3,
+      "n_failing": 3,
+      "n_passing": 1,
+      "regressions": [
+        3,
+        4
+      ],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 12.66584038734436
+}

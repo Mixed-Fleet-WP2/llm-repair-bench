@@ -1,0 +1,48 @@
+{
+  "domain": "nuclear facility robotics",
+  "robots": [
+    "RadiationMapper",
+    "ManipulatorRobot"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "ordering_prerequisite",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "missing_safety_guard",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "mapper": [
+        "mapper.Done"
+      ],
+      "manipulator": [
+        "manipulator.HandleValve"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> mapper.Done",
+        "comment": "Goal preserved: mapper can still reach Done",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> manipulator.HandleValve",
+        "comment": "Goal preserved: manipulator can still reach HandleValve",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

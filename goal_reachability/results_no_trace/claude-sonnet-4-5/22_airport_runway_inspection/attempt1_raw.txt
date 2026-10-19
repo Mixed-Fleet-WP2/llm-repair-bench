@@ -1,0 +1,37 @@
+I'll analyze the two failing queries step by step:
+
+**FAILING QUERY 1: `A[] not (drone.ScanRunway && vehicle.RunwayEntry)`**
+
+This means drone and vehicle should NEVER be in ScanRunway and RunwayEntry simultaneously.
+
+Current behavior:
+- Drone: Idle (urgent) → ScanRunway (stays 3-5 time units) → Done
+- Vehicle: Idle (urgent) → RunwayEntry (stays 6-8 time units) → RepairMark
+
+The problem: Both processes have urgent initial locations, so they both immediately take their first transition at time=0. The drone enters ScanRunway and sets `runway_scan_active=true`. The vehicle enters RunwayEntry. Both are now in their respective locations simultaneously, violating the query.
+
+The fix: The vehicle should NOT enter RunwayEntry while the runway scan is active. I need to guard the vehicle's transition to RunwayEntry with `!runway_scan_active`.
+
+**FAILING QUERY 2: `A[] (vehicle.RunwayEntry imply vehicle.t <= 5)`**
+
+This means whenever the vehicle is in RunwayEntry, its clock t must be ≤ 5.
+
+Current behavior: The vehicle's RunwayEntry location has invariant `t <= 8`, allowing the vehicle to stay up to 8 time units. The query requires t ≤ 5 in that location.
+
+The fix: Change the invariant on RunwayEntry from `t <= 8` to `t <= 5`.
+
+But wait - the transition out of RunwayEntry has guard `t >= 6`. If I change the invariant to `t <= 5`, the vehicle can never satisfy `t >= 6` and will be stuck. I need to also change the guard from `t >= 6` to something ≤ 5, such as `t >= 3` or `t >= 5`.
+
+Let me verify this doesn't break other queries:
+- `E<> drone.Done` - drone can still reach Done (unchanged)
+- `E<> vehicle.RepairMark` - vehicle can still reach RepairMark (just needs different timing)
+
+<?xml version='1.0' encoding='utf-8'?>
+<nta>
+<declaration>
+bool runway_scan_active = false;
+</declaration><template><name>RunwayDrone</name><declaration>clock x;</declaration><location id="id0" x="0" y="0"><name x="-15" y="-30">Idle</name><urgent /></location><location id="id1" x="220" y="0"><name x="180" y="-30">ScanRunway</name><label kind="invariant" x="190" y="25">x &lt;= 5</label></location><location id="id2" x="440" y="0"><name x="420" y="-30">Done</name></location><init ref="id0" /><transition><source ref="id0" /><target ref="id1" /><label kind="assignment" x="45" y="-20">x = 0, runway_scan_active = true</label></transition><transition><source ref="id1" /><target ref="id2" /><label kind="guard" x="275" y="-35">x &gt;= 3</label><label kind="assignment" x="235" y="15">runway_scan_active = false</label></transition></template><template><name>MaintenanceVehicle</name><declaration>clock t;</declaration><location id="id10" x="0" y="220"><name x="-15" y="190">Idle</name><urgent /></location><location id="id11" x="220" y="220"><name x="175" y="190">RunwayEntry</name><label kind="invariant" x="190" y="245">t &lt;= 5</label></location><location id="id12" x="440" y="220"><name x="400" y="190">RepairMark</name><label kind="invariant" x="410" y="245">t &lt;= 3</label></location><init ref="id10" /><transition><source ref="id10" /><target ref="id11" /><label kind="guard" x="75" y="185">!runway_scan_active</label><label kind="assignment" x="75" y="205">t = 0</label></transition><transition><source ref="id11" /><target ref="id12" /><label kind="guard" x="275" y="185">t &gt;= 3</label><label kind="assignment" x="270" y="235">t = 0</label></transition></template><system>
+drone = RunwayDrone();
+vehicle = MaintenanceVehicle();
+system drone, vehicle;
+</system><queries><query><formula>A[] not (drone.ScanRunway &amp;&amp; vehicle.RunwayEntry)</formula><comment /></query><query><formula>A[] (vehicle.RunwayEntry imply vehicle.t &lt;= 5)</formula><comment /></query><query><formula>E&lt;&gt; drone.Done</formula><comment /></query><query><formula>E&lt;&gt; vehicle.RepairMark</formula><comment /></query></queries></nta>

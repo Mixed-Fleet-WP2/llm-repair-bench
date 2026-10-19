@@ -1,0 +1,49 @@
+I'll analyze the failing queries step by step:
+
+**FAILING QUERY 1: `A[] not (sanitation.Clean && delivery.PatientRoom)`**
+
+This requires that we NEVER have both sanitation in Clean AND delivery in PatientRoom simultaneously.
+
+Looking at the model:
+- Sanitation starts in Clean and stays there for up to 4 time units (invariant `x <= 4`) before transitioning to Done
+- Delivery goes: Pickup → WaitRoom → PatientRoom → WaitDoor → Done
+- The transition from WaitRoom to PatientRoom has NO guard - it can fire immediately
+
+The problem: Delivery can reach PatientRoom while sanitation is still in Clean because:
+1. Delivery Pickup→WaitRoom takes at least 1 time unit
+2. WaitRoom→PatientRoom has NO guard, can fire at y=0
+3. So delivery reaches PatientRoom at global time ~1
+4. Sanitation stays in Clean until time 2-4
+5. Therefore both locations are active simultaneously, violating the invariant
+
+The fix: The transition WaitRoom→PatientRoom should be guarded by `!sanitation_active` (which becomes true only when sanitation finishes and sets it false).
+
+**FAILING QUERY 2: `A<> delivery.Done`**
+
+This requires delivery MUST eventually reach Done on ALL paths.
+
+Looking at delivery's path to Done:
+- Pickup → WaitRoom → PatientRoom → WaitDoor → Done
+- The final transition WaitDoor→Done is guarded by `door_open`
+- `door_open` is set to true by sanitation when it completes
+
+However, there's a self-loop on WaitDoor with guard `y >= 1` that resets `y = 0`. This creates a potential livelock if `door_open` never becomes true.
+
+But wait - sanitation DOES set `door_open = true` when transitioning to Done. The issue is that delivery might reach WaitDoor BEFORE sanitation finishes.
+
+Actually, looking more carefully: the WaitDoor self-loop allows waiting indefinitely. The issue is whether sanitation is guaranteed to finish. Looking at sanitation: it MUST exit Clean between time 2 and 4 (guard `x >= 2`, invariant `x <= 4`), so it WILL eventually set `door_open = true`.
+
+The real issue: if delivery reaches PatientRoom too early (before sanitation finishes), but we need it to wait. The WaitRoom→PatientRoom transition needs to wait for sanitation to complete.
+
+Combining both fixes: The WaitRoom→PatientRoom transition should be guarded by `!sanitation_active`.
+
+<?xml version='1.0' encoding='utf-8'?>
+<nta>
+<declaration>
+bool sanitation_active = true;
+bool door_open = false;
+</declaration><template><name>SanitationBot</name><declaration>clock x;</declaration><location id="id0" x="0" y="0"><name x="-20" y="-30">Clean</name><label kind="invariant" x="-30" y="25">x &lt;= 4</label></location><location id="id1" x="260" y="0"><name x="240" y="-30">Done</name></location><init ref="id0" /><transition><source ref="id0" /><target ref="id1" /><label kind="guard" x="120" y="-25">x &gt;= 2</label><label kind="assignment" x="120" y="25">sanitation_active = false, door_open = true</label></transition></template><template><name>DeliveryBot</name><declaration>clock y;</declaration><location id="id10" x="0" y="220"><name x="-20" y="190">Pickup</name><label kind="invariant" x="-30" y="245">y &lt;= 2</label></location><location id="id11" x="220" y="220"><name x="200" y="190">WaitRoom</name><label kind="invariant" x="190" y="245">y &lt;= 5</label></location><location id="id12" x="440" y="220"><name x="420" y="190">PatientRoom</name><label kind="invariant" x="410" y="245">y &lt;= 2</label></location><location id="id13" x="660" y="220"><name x="640" y="190">WaitDoor</name><label kind="invariant" x="630" y="245">y &lt;= 2</label></location><location id="id14" x="880" y="220"><name x="860" y="190">Done</name></location><init ref="id10" /><transition><source ref="id10" /><target ref="id11" /><label kind="guard" x="90" y="195">y &gt;= 1</label><label kind="assignment" x="90" y="245">y = 0</label></transition><transition><source ref="id11" /><target ref="id12" /><label kind="guard" x="300" y="195">!sanitation_active</label><label kind="assignment" x="300" y="245">y = 0</label></transition><transition><source ref="id12" /><target ref="id13" /><label kind="guard" x="520" y="195">y &gt;= 1</label><label kind="assignment" x="520" y="245">y = 0</label></transition><transition><source ref="id13" /><target ref="id13" /><label kind="guard" x="690" y="260">y &gt;= 1</label><label kind="assignment" x="690" y="310">y = 0</label></transition><transition><source ref="id13" /><target ref="id14" /><label kind="guard" x="745" y="195">door_open</label></transition></template><system>
+sanitation = SanitationBot();
+delivery = DeliveryBot();
+system sanitation, delivery;
+</system><queries><query><formula>A[] not (sanitation.Clean &amp;&amp; delivery.PatientRoom)</formula><comment /></query><query><formula>A&lt;&gt; delivery.Done</formula><comment /></query><query><formula>E&lt;&gt; sanitation.Done</formula><comment /></query><query><formula>E&lt;&gt; delivery.Done</formula><comment /></query></queries></nta>

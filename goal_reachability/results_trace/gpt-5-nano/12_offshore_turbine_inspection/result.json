@@ -1,0 +1,48 @@
+{
+  "mission": "12_offshore_turbine_inspection",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] not (drone.RotorScan && climber.BladeAccess)",
+    "A[] (climber.BladeAccess imply climber.t <= 5)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "PARTIAL",
+  "attempts_used": 3,
+  "final_failing": [
+    "A[] not (drone.RotorScan && climber.BladeAccess)"
+  ],
+  "final_passing": [
+    "A[] (climber.BladeAccess imply climber.t <= 5)",
+    "E<> drone.Done",
+    "E<> climber.Done"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 3,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "Command: UPPAAL_COMPILE_ONLY=&&/home/user/Desktop/uppaal-5.0.0-linux64/bin/verifyta with_reachability/results_trace/gpt-5-nano/12_offshore_turbine_inspection/attempt3.xml -f with_reachability/results_trace/gpt-5-nano/12_offshore_turbine_inspection/attempt3_xtr -t 1\nErr: with_reachability/results_trace/gpt-5-nano/12_offshore_turbine_inspection/attempt3.xml:/nta/template[1]/transition[2]/label[2]:1: [error] syntax error: unexpected ';', expecting end of file.\n",
+  "elapsed_s": 184.37748050689697
+}

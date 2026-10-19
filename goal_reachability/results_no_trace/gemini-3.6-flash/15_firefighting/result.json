@@ -1,0 +1,33 @@
+{
+  "mission": "15_firefighting",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] (ugv.ApproachFire imply hotspot_localized)",
+    "A[] not (drone.SmokeZone && ugv.SmokeZone)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FIXED",
+  "attempts_used": 1,
+  "final_failing": [],
+  "final_passing": [
+    "A[] (ugv.ApproachFire imply hotspot_localized)",
+    "A[] not (drone.SmokeZone && ugv.SmokeZone)",
+    "E<> drone.Done",
+    "E<> ugv.Suppress"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 0,
+      "n_passing": 4,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 44.220698833465576
+}

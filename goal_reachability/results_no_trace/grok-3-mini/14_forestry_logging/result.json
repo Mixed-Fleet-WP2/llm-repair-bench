@@ -1,0 +1,48 @@
+{
+  "mission": "14_forestry_logging",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] not (feller.CutTree && hauler.CutZone)",
+    "feller.TreeFelled --> hauler.Collect"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "PARTIAL",
+  "attempts_used": 3,
+  "final_failing": [
+    "feller.TreeFelled --> hauler.Collect"
+  ],
+  "final_passing": [
+    "A[] not (feller.CutTree && hauler.CutZone)",
+    "E<> feller.TreeFelled",
+    "E<> hauler.Collect"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 3,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 72.41989040374756
+}

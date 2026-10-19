@@ -1,0 +1,48 @@
+{
+  "mission": "02_harbor_loading",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] not (crane.Swing && agv.LoadZone)",
+    "A[] (agv.Depart imply cargo_loaded)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FAILED",
+  "attempts_used": 3,
+  "final_failing": [
+    "A[] not (crane.Swing && agv.LoadZone)",
+    "A[] (agv.Depart imply cargo_loaded)"
+  ],
+  "final_passing": [
+    "E<> crane.Done",
+    "E<> agv.Done"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 3,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "Command: UPPAAL_COMPILE_ONLY=&&/home/user/Desktop/uppaal-5.0.0-linux64/bin/verifyta with_reachability/results_trace/qwen3.5-9b/02_harbor_loading/attempt3.xml -f with_reachability/results_trace/qwen3.5-9b/02_harbor_loading/attempt3_xtr -t 1\nErr: with_reachability/results_trace/qwen3.5-9b/02_harbor_loading/attempt3.xml:/nta/template[2]/transition[3]/label[2]:1: [warning] Expression does not have any effect.\n",
+  "elapsed_s": 746.9969170093536
+}

@@ -1,0 +1,48 @@
+{
+  "mission": "20_retail_warehouse_restocking",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] (amr.EnterAisle imply aisle_clear)",
+    "scanner.ShelfVerified --> amr.Restock"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FAILED",
+  "attempts_used": 3,
+  "final_failing": [
+    "A[] (amr.EnterAisle imply aisle_clear)",
+    "scanner.ShelfVerified --> amr.Restock"
+  ],
+  "final_passing": [
+    "E<> scanner.ShelfVerified",
+    "E<> amr.Restock"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": false
+    },
+    {
+      "attempt": 3,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 610.8360970020294
+}

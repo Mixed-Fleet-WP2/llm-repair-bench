@@ -1,0 +1,33 @@
+{
+  "mission": "07_mining_haul",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] not (drill.Drill && hauler.Tunnel)",
+    "A[] (hauler.Transport imply load_weight <= MAX_LOAD)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FIXED",
+  "attempts_used": 1,
+  "final_failing": [],
+  "final_passing": [
+    "A[] not (drill.Drill && hauler.Tunnel)",
+    "A[] (hauler.Transport imply load_weight <= MAX_LOAD)",
+    "E<> drill.Done",
+    "E<> hauler.Done"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 0,
+      "n_passing": 4,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 163.77423882484436
+}

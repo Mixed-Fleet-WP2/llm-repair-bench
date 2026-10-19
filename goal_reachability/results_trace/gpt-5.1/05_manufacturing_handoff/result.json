@@ -1,0 +1,51 @@
+{
+  "mission": "05_manufacturing_handoff",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] not (arm.Weld && mobile.LoadZone)",
+    "arm.HandoffDone --> mobile.Deliver"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "PARTIAL",
+  "attempts_used": 3,
+  "final_failing": [
+    "arm.HandoffDone --> mobile.Deliver"
+  ],
+  "final_passing": [
+    "A[] not (arm.Weld && mobile.LoadZone)",
+    "E<> arm.HandoffDone",
+    "E<> mobile.Done"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [
+        3,
+        4
+      ],
+      "llm_valid": true
+    },
+    {
+      "attempt": 3,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 23.011404275894165
+}

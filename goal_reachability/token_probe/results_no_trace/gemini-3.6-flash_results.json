@@ -1,0 +1,41 @@
+[
+  {
+    "mission": "08_construction_lift",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (crane.Lift imply survey_done)",
+      "A[] (crane.Lift imply crane.t <= 5)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (crane.Lift imply survey_done)",
+      "A[] (crane.Lift imply crane.t <= 5)",
+      "E<> drone.Done",
+      "E<> crane.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true,
+        "usage": {
+          "served_model": "gemini-3.6-flash",
+          "input_tokens": 2968,
+          "output_tokens": 6236,
+          "reasoning_tokens": 5407
+        }
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 28.674683332443237
+  }
+]

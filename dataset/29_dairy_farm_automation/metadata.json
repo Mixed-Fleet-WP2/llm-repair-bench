@@ -1,0 +1,48 @@
+{
+  "domain": "agricultural service robotics",
+  "robots": [
+    "MilkingRobot",
+    "FeedAMR"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "time_bounded_constraint",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "missing_guard",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "milker": [
+        "milker.Done"
+      ],
+      "feeder": [
+        "feeder.Feed"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> milker.Done",
+        "comment": "Goal preserved: milker can still reach Done",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> feeder.Feed",
+        "comment": "Goal preserved: feeder can still reach Feed",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='utf-8'?>
+<nta>
+<declaration>
+bool thermal_scan_done = false;
+</declaration>
+<template>
+<name>ThermalDrone</name>
+<declaration>clock x;</declaration>
+<location id="id0" x="0" y="0">
+<name x="-15" y="-30">Idle</name>
+<urgent />
+</location>
+<location id="id1" x="220" y="0">
+<name x="180" y="-30">ThermalScan</name>
+<label kind="invariant" x="190" y="25">x &lt;= 5</label>
+</location>
+<location id="id2" x="440" y="0">
+<name x="420" y="-30">Done</name>
+</location>
+<init ref="id0" />
+<transition>
+<source ref="id0" />
+<target ref="id1" />
+<label kind="assignment" x="75" y="-20">x = 0</label>
+</transition>
+<transition>
+<source ref="id1" />
+<target ref="id2" />
+<label kind="guard" x="275" y="-35">x &gt;= 3</label>
+<label kind="assignment" x="240" y="15">thermal_scan_done = true</label>
+</transition>
+</template>
+<template>
+<name>CleaningRobot</name>
+<declaration>clock t;</declaration>
+<location id="id10" x="0" y="220">
+<name x="-15" y="190">Idle</name>
+<urgent />
+</location>
+<location id="id11" x="220" y="220">
+<name x="185" y="190">CleanPanel</name>
+<label kind="invariant" x="190" y="245">t &lt;= 6</label>
+</location>
+<location id="id12" x="440" y="220">
+<name x="420" y="190">Done</name>
+</location>
+<init ref="id10" />
+<transition>
+<source ref="id10" />
+<target ref="id11" />
+<label kind="guard" x="75" y="205">thermal_scan_done</label>
+<label kind="assignment" x="75" y="225">t = 0</label>
+</transition>
+<transition>
+<source ref="id11" />
+<target ref="id12" />
+<label kind="guard" x="275" y="185">t &gt;= 7</label>
+</transition>
+</template>
+<system>
+drone = ThermalDrone();
+cleaner = CleaningRobot();
+system drone, cleaner;
+</system>
+<queries>
+<query>
+<formula>A[] (cleaner.CleanPanel imply thermal_scan_done)</formula>
+<comment />
+</query>
+<query>
+<formula>A[] (cleaner.CleanPanel imply cleaner.t &lt;= 6)</formula>
+<comment />
+</query>
+<query>
+<formula>E&lt;&gt; drone.Done</formula>
+<comment />
+</query>
+<query>
+<formula>E&lt;&gt; cleaner.Done</formula>
+<comment />
+</query>
+</queries>
+</nta>

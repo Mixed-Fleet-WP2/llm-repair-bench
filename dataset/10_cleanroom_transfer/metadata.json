@@ -1,0 +1,56 @@
+{
+  "model": "10_cleanroom_transfer",
+  "domain": "cleanroom logistics",
+  "robots": [
+    "SterilizerBot",
+    "CourierBot"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "missing_guard",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "mutual_exclusion",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "queries": {
+    "P1": {
+      "formula": "A[] (courier.CleanRoom imply sterile_ready)",
+      "expected": "FAIL"
+    },
+    "P2": {
+      "formula": "A[] not (sterilizer.Airlock && courier.Airlock)",
+      "expected": "FAIL"
+    }
+  },
+  "benchmark_stage": "faulty_only",
+  "goal_reachability": {
+    "goal_locations": {
+      "sterilizer": [
+        "sterilizer.Done"
+      ],
+      "courier": [
+        "courier.Done"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> sterilizer.Done",
+        "comment": "Goal preserved: sterilizer can still reach Done",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> courier.Done",
+        "comment": "Goal preserved: courier can still reach Done",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

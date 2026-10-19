@@ -1,0 +1,38 @@
+I need to analyze the failing queries and identify the root causes.
+
+**Analysis:**
+
+**Query 1:** `A[] (manipulator.EnterCell imply radiation_map_ready)`
+- This means: whenever the manipulator is in EnterCell, radiation_map_ready must be true.
+- Currently, manipulator can enter EnterCell immediately from Idle (the first transition has no guard).
+- RadiationMapper starts in Idle and only sets `radiation_map_ready = true` after reaching Done (when x >= 3).
+- **Problem:** Manipulator can reach EnterCell before radiation_map_ready is set to true, violating the invariant.
+- **Fix:** Guard the transition from manipulator.Idle to manipulator.EnterCell with `radiation_map_ready`.
+
+**Query 2:** `A[] (manipulator.HandleValve imply radiation_level <= SAFE_LEVEL)`
+- This means: whenever the manipulator is in HandleValve, radiation_level must be ≤ SAFE_LEVEL (4).
+- RadiationMapper sets `radiation_level = 3` when it reaches Done.
+- Initially, `radiation_level = 9`, which violates the property.
+- Manipulator can reach HandleValve without radiation_map_ready being true.
+- **Problem:** Similar to Query 1 — manipulator can reach HandleValve before radiation_level is safely set to 3.
+- **Fix:** Guard the transition from manipulator.EnterCell to manipulator.HandleValve with `radiation_map_ready` (and/or ensure radiation_level is safe).
+
+Since both queries hinge on ensuring the manipulator doesn't advance until the mapper has set radiation_map_ready and radiation_level, I need to add a guard to the manipulator's first transition checking `radiation_map_ready`.
+
+Let me verify this doesn't break the passing queries (3 and 4):
+- Query 3: `E<> mapper.Done` — mapper will reach Done, so this should still pass.
+- Query 4: `E<> manipulator.HandleValve` — manipulator can still reach HandleValve if radiation_map_ready becomes true, so this should still pass.
+
+**Minimal fix:** Add guard `radiation_map_ready` to the transition from `manipulator.Idle` to `manipulator.EnterCell`.
+
+<?xml version='1.0' encoding='utf-8'?>
+<nta>
+<declaration>
+bool radiation_map_ready = false;
+int radiation_level = 9;
+const int SAFE_LEVEL = 4;
+</declaration><template><name>RadiationMapper</name><declaration>clock x;</declaration><location id="id0" x="0" y="0"><name x="-15" y="-30">Idle</name><urgent /></location><location id="id1" x="220" y="0"><name x="175" y="-30">MapRadiation</name><label kind="invariant" x="190" y="25">x &lt;= 5</label></location><location id="id2" x="440" y="0"><name x="420" y="-30">Done</name></location><init ref="id0" /><transition><source ref="id0" /><target ref="id1" /><label kind="assignment" x="75" y="-20">x = 0</label></transition><transition><source ref="id1" /><target ref="id2" /><label kind="guard" x="275" y="-35">x &gt;= 3</label><label kind="assignment" x="200" y="15">radiation_map_ready = true, radiation_level = 3</label></transition></template><template><name>ManipulatorRobot</name><declaration>clock y;</declaration><location id="id10" x="0" y="220"><name x="-15" y="190">Idle</name><urgent /></location><location id="id11" x="220" y="220"><name x="180" y="190">EnterCell</name><label kind="invariant" x="190" y="245">y &lt;= 2</label></location><location id="id12" x="440" y="220"><name x="390" y="190">HandleValve</name><label kind="invariant" x="410" y="245">y &lt;= 3</label></location><init ref="id10" /><transition><source ref="id10" /><target ref="id11" /><label kind="guard" x="75" y="195">radiation_map_ready</label><label kind="assignment" x="75" y="205">y = 0</label></transition><transition><source ref="id11" /><target ref="id12" /><label kind="guard" x="275" y="185">y &gt;= 1</label></transition></template><system>
+mapper = RadiationMapper();
+manipulator = ManipulatorRobot();
+system mapper, manipulator;
+</system><queries><query><formula>A[] (manipulator.EnterCell imply radiation_map_ready)</formula><comment /></query><query><formula>A[] (manipulator.HandleValve imply radiation_level &lt;= SAFE_LEVEL)</formula><comment /></query><query><formula>E&lt;&gt; mapper.Done</formula><comment /></query><query><formula>E&lt;&gt; manipulator.HandleValve</formula><comment /></query></queries></nta>

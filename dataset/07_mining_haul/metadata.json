@@ -1,0 +1,56 @@
+{
+  "model": "07_mining_haul",
+  "domain": "mining",
+  "robots": [
+    "DrillBot",
+    "HaulerBot"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "mutual_exclusion",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "missing_capacity_guard",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "queries": {
+    "P1": {
+      "formula": "A[] not (drill.Drill && hauler.Tunnel)",
+      "expected": "FAIL"
+    },
+    "P2": {
+      "formula": "A[] (hauler.Transport imply load_weight <= MAX_LOAD)",
+      "expected": "FAIL"
+    }
+  },
+  "benchmark_stage": "faulty_only",
+  "goal_reachability": {
+    "goal_locations": {
+      "drill": [
+        "drill.Done"
+      ],
+      "hauler": [
+        "hauler.Done"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> drill.Done",
+        "comment": "Goal preserved: drill can still reach Done",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> hauler.Done",
+        "comment": "Goal preserved: hauler can still reach Done",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

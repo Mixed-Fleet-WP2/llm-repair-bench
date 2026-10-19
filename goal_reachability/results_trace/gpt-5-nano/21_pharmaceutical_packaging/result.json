@@ -1,0 +1,48 @@
+{
+  "mission": "21_pharmaceutical_packaging",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] (packing.PickBatch imply quality_checked)",
+    "A[] (packing.EnterSterileZone imply sterile_zone_ready)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FAILED",
+  "attempts_used": 3,
+  "final_failing": [
+    "A[] (packing.PickBatch imply quality_checked)",
+    "A[] (packing.EnterSterileZone imply sterile_zone_ready)"
+  ],
+  "final_passing": [
+    "E<> inspection.CheckComplete",
+    "E<> packing.Pack"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": false
+    },
+    {
+      "attempt": 2,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": false
+    },
+    {
+      "attempt": 3,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "Command: UPPAAL_COMPILE_ONLY=&&/home/user/Desktop/uppaal-5.0.0-linux64/bin/verifyta with_reachability/results_trace/gpt-5-nano/21_pharmaceutical_packaging/attempt3.xml -f with_reachability/results_trace/gpt-5-nano/21_pharmaceutical_packaging/attempt3_xtr -t 1\nErr: with_reachability/results_trace/gpt-5-nano/21_pharmaceutical_packaging/attempt3.xml:/nta/queries/query[3]/formula:1: [error] Unknown identifier: E.\nwith_reachability/results_trace/gpt-5-nano/21_pharmaceutical_packaging/attempt3.xml:/nta/queries/query[3]/formula:1: [error] syntax error: unexpected end of file.\n",
+  "elapsed_s": 166.23740029335022
+}

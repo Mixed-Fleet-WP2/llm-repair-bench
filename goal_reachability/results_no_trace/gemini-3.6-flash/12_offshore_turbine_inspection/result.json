@@ -1,0 +1,33 @@
+{
+  "mission": "12_offshore_turbine_inspection",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] not (drone.RotorScan && climber.BladeAccess)",
+    "A[] (climber.BladeAccess imply climber.t <= 5)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FIXED",
+  "attempts_used": 1,
+  "final_failing": [],
+  "final_passing": [
+    "A[] not (drone.RotorScan && climber.BladeAccess)",
+    "A[] (climber.BladeAccess imply climber.t <= 5)",
+    "E<> drone.Done",
+    "E<> climber.Done"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 0,
+      "n_passing": 4,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 54.82256555557251
+}

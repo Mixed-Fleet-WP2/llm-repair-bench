@@ -1,0 +1,56 @@
+{
+  "model": "03_hospital_delivery",
+  "domain": "hospital service robotics",
+  "robots": [
+    "SanitationBot",
+    "DeliveryBot"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "missing_guard_mutual_exclusion",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "liveness_control_flow",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "queries": {
+    "P1": {
+      "formula": "A[] not (sanitation.Clean && delivery.PatientRoom)",
+      "expected": "FAIL"
+    },
+    "P2": {
+      "formula": "A<> delivery.Done",
+      "expected": "FAIL"
+    }
+  },
+  "benchmark_stage": "faulty_only",
+  "goal_reachability": {
+    "goal_locations": {
+      "sanitation": [
+        "sanitation.Done"
+      ],
+      "delivery": [
+        "delivery.Done"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> sanitation.Done",
+        "comment": "Goal preserved: sanitation can still reach Done",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> delivery.Done",
+        "comment": "Goal preserved: delivery can still reach Done",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

@@ -1,0 +1,53 @@
+I'll analyze the failing queries step by step.
+
+**FAILING QUERY 1: `A[] (service.OpenRack imply rack_safe)`**
+
+This means: whenever ServiceRobot is in location OpenRack, rack_safe must be true.
+
+Looking at the model:
+- ServiceRobot transitions from Idle → OpenRack (with y=0 assignment)
+- OpenRack has invariant y ≤ 2
+- ThermalInspector transitions from Idle → ThermalScan (with x=0) → RackCleared
+- rack_safe is set to true on the transition ThermalScan → RackCleared (when x ≥ 2)
+
+The problem: Both processes start independently. ServiceRobot can reach OpenRack immediately (urgent Idle location), while ThermalInspector needs at least 2 time units (x ≥ 2 guard) before setting rack_safe = true. Therefore, service.OpenRack can be reached while rack_safe is still false.
+
+**Fix for Query 1:** The transition from ServiceRobot Idle → OpenRack needs to guard on rack_safe being true.
+
+**FAILING QUERY 2: `inspector.RackCleared --> service.ReplaceUnit`**
+
+This is a leads-to query: whenever inspector reaches RackCleared, service must eventually reach ReplaceUnit.
+
+Looking at the model:
+- When inspector reaches RackCleared, rack_safe becomes true
+- ServiceRobot at Decision checks rack_safe to go to ReplaceUnit
+- But ServiceRobot might already be past the Decision point before rack_safe becomes true
+- If ServiceRobot goes Idle → OpenRack → Decision → Wait (because rack_safe was false), it cycles Decision ↔ Wait forever
+- The Wait → Decision transition has guard y ≥ 1, then Decision can go back to Wait
+- There's no path from Wait back to checking rack_safe and reaching ReplaceUnit if rack_safe becomes true later
+
+Actually, looking more carefully: Decision → Wait has no guard, so if rack_safe is false at Decision, service goes to Wait. From Wait, when y ≥ 1, it goes back to Decision. At this point, if rack_safe is now true, it can go to ReplaceUnit.
+
+But the issue is timing: if inspector.RackCleared is reached, but service is stuck in the Wait ↔ Decision loop and rack_safe was already true when it first reached Decision, it went to ReplaceUnit already. But if service reaches Decision before rack_safe is true, goes to Wait, then when it returns to Decision, rack_safe might be true now.
+
+Wait, re-reading: the query says "inspector.RackCleared --> service.ReplaceUnit". This should be satisfiable if the paths allow it. Let me reconsider.
+
+The real issue: ServiceRobot can reach Decision before rack_safe is true, take the unlabeled transition to Wait, and then loop Wait ↔ Decision forever without ever taking the rack_safe guarded transition to ReplaceUnit, even after rack_safe becomes true later, because once in the Wait ↔ Decision loop, there's no escape.
+
+Actually no - from Decision, if rack_safe is true, it SHOULD take that transition. But Decision is urgent, so it must take AN enabled transition immediately. If both transitions are enabled (rack_safe true and the other one), UPPAAL can choose either. The Decision → Wait transition has NO guard, so it's always enabled. This means even when rack_safe is true, the system can non-deterministically choose Wait instead of ReplaceUnit.
+
+**Fix for Query 2:** The Decision → Wait transition should be guarded with !rack_safe, so that when rack_safe is true, only the ReplaceUnit path is enabled.
+
+Let me verify these fixes don't break the other queries:
+- `E<> inspector.RackCleared` - still reachable (unchanged)
+- `E<> service.ReplaceUnit` - now MORE easily reachable (good)
+
+<?xml version='1.0' encoding='utf-8'?>
+<nta>
+<declaration>
+bool rack_safe = false;
+</declaration><template><name>ThermalInspector</name><declaration>clock x;</declaration><location id="id0" x="0" y="0"><name x="-15" y="-30">Idle</name><urgent /></location><location id="id1" x="220" y="0"><name x="180" y="-30">ThermalScan</name><label kind="invariant" x="190" y="25">x &lt;= 4</label></location><location id="id2" x="440" y="0"><name x="385" y="-30">RackCleared</name></location><init ref="id0" /><transition><source ref="id0" /><target ref="id1" /><label kind="assignment" x="75" y="-20">x = 0</label></transition><transition><source ref="id1" /><target ref="id2" /><label kind="guard" x="275" y="-35">x &gt;= 2</label><label kind="assignment" x="245" y="15">rack_safe = true</label></transition></template><template><name>ServiceRobot</name><declaration>clock y;</declaration><location id="id10" x="0" y="220"><name x="-15" y="190">Idle</name><urgent /></location><location id="id11" x="220" y="220"><name x="185" y="190">OpenRack</name><label kind="invariant" x="190" y="245">y &lt;= 2</label></location><location id="id12" x="440" y="220"><name x="405" y="190">Decision</name><urgent /></location><location id="id13" x="660" y="165"><name x="625" y="135">ReplaceUnit</name><label kind="invariant" x="630" y="190">y &lt;= 3</label></location><location id="id14" x="660" y="300"><name x="635" y="270">Wait</name><label kind="invariant" x="630" y="325">y &lt;= 2</label></location><init ref="id10" /><transition><source ref="id10" /><target ref="id11" /><label kind="guard" x="75" y="185">rack_safe</label><label kind="assignment" x="75" y="205">y = 0</label></transition><transition><source ref="id11" /><target ref="id12" /><label kind="guard" x="275" y="185">y &gt;= 1</label></transition><transition><source ref="id12" /><target ref="id13" /><label kind="guard" x="495" y="140">rack_safe</label><label kind="assignment" x="500" y="170">y = 0</label></transition><transition><source ref="id12" /><target ref="id14" /><label kind="guard" x="465" y="260">!rack_safe</label><label kind="assignment" x="500" y="285">y = 0</label></transition><transition><source ref="id14" /><target ref="id12" /><label kind="guard" x="555" y="345">y &gt;= 1</label></transition></template><system>
+inspector = ThermalInspector();
+service = ServiceRobot();
+system inspector, service;
+</system><queries><query><formula>A[] (service.OpenRack imply rack_safe)</formula><comment /></query><query><formula>inspector.RackCleared --&gt; service.ReplaceUnit</formula><comment /></query><query><formula>E&lt;&gt; inspector.RackCleared</formula><comment /></query><query><formula>E&lt;&gt; service.ReplaceUnit</formula><comment /></query></queries></nta>

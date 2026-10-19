@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<nta>
+<declaration>
+bool field_scanned = false;
+</declaration><template><name>ScoutDrone</name><declaration>clock x;</declaration><location id="id0" x="0" y="0"><name x="-20" y="-30">ScanField</name><label kind="invariant" x="-30" y="25">x &lt;= 5</label></location><location id="id1" x="280" y="0"><name x="260" y="-30">Done</name></location><init ref="id0" /><transition><source ref="id0" /><target ref="id1" /><label kind="guard" x="120" y="-25">x &gt;= 3</label><label kind="assignment" x="120" y="25">field_scanned = true</label></transition></template><template><name>SprayerUGV</name><declaration>clock t;</declaration><location id="id10" x="0" y="220"><name x="-20" y="190">Idle</name></location><location id="id11" x="260" y="220"><name x="240" y="190">Spray</name><label kind="invariant" x="230" y="245">t &lt;= 5</label></location><location id="id12" x="520" y="220"><name x="500" y="190">Done</name></location><init ref="id10" /><transition><source ref="id10" /><target ref="id11" /><label kind="guard" x="80" y="195">field_scanned</label><label kind="assignment" x="100" y="245">t = 0</label></transition><transition><source ref="id11" /><target ref="id12" /><label kind="guard" x="360" y="195">t &gt;= 4</label></transition></template><system>
+scout = ScoutDrone();
+sprayer = SprayerUGV();
+system scout, sprayer;
+</system><queries><query><formula>A[] (sprayer.Spray imply field_scanned)</formula><comment /></query><query><formula>A[] (sprayer.Spray imply sprayer.t &lt;= 5)</formula><comment /></query><query><formula>E&lt;&gt; scout.Done</formula><comment /></query><query><formula>E&lt;&gt; sprayer.Done</formula><comment /></query></queries></nta>

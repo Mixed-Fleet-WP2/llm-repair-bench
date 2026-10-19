@@ -1,0 +1,48 @@
+{
+  "domain": "underwater inspection",
+  "robots": [
+    "InspectionAUV",
+    "RepairAUV"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "mutual_exclusion",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "conditional_response_liveness",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "inspection": [
+        "inspection.DefectFound"
+      ],
+      "repair": [
+        "repair.Repair"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> inspection.DefectFound",
+        "comment": "Goal preserved: inspection can still reach DefectFound",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> repair.Repair",
+        "comment": "Goal preserved: repair can still reach Repair",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

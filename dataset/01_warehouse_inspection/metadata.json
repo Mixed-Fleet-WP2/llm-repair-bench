@@ -1,0 +1,56 @@
+{
+  "model": "01_warehouse_inspection",
+  "domain": "warehouse logistics",
+  "robots": [
+    "InspectorBot",
+    "CarrierBot"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "ordering_prerequisite",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "missing_guard_mutual_exclusion",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "queries": {
+    "P1": {
+      "formula": "A[] (carrier.Pickup imply scan_done)",
+      "expected": "FAIL"
+    },
+    "P2": {
+      "formula": "A[] not (inspector.Corridor && carrier.Corridor)",
+      "expected": "FAIL"
+    }
+  },
+  "benchmark_stage": "faulty_only",
+  "goal_reachability": {
+    "goal_locations": {
+      "inspector": [
+        "inspector.Done"
+      ],
+      "carrier": [
+        "carrier.Done"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> inspector.Done",
+        "comment": "Goal preserved: inspector can still reach Done",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> carrier.Done",
+        "comment": "Goal preserved: carrier can still reach Done",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

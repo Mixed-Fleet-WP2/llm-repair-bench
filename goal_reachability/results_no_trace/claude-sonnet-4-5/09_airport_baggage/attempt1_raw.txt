@@ -1,0 +1,43 @@
+I need to analyze the two failing queries and fix them by examining the model structure.
+
+**Analysis of FAILING QUERY 1: `A[] (tug.Pickup imply scan_done)`**
+
+This query requires that whenever the tug is in the Pickup location, `scan_done` must be true.
+
+Looking at the model:
+- The tug transitions from Idle → Pickup immediately (urgent location, no guard)
+- The tug transitions from Pickup → Decision after y >= 1
+- The scanner transitions from Idle → Scan → ScanDone, setting `scan_done = true` when leaving Scan (guard x >= 2)
+
+The problem: Both processes start from urgent locations and can transition independently. The tug can reach Pickup (and stay there for up to 2 time units due to invariant y <= 2) before the scanner finishes scanning. The scanner needs at least 2 time units to complete (x >= 2 guard).
+
+The fix for Query 1: The tug should not enter Pickup until `scan_done` is true. I need to add a guard `scan_done` on the transition from Idle to Pickup in the BaggageTug template.
+
+**Analysis of FAILING QUERY 2: `scanner.ScanDone --> tug.Deliver`**
+
+This is a leads-to property: whenever scanner reaches ScanDone, tug must eventually reach Deliver.
+
+Looking at the model:
+- From Decision (urgent), the tug can go to either Deliver (if scan_done) or Holding (no guard)
+- From Holding, the tug goes back to Decision after y >= 1
+- The loop between Decision and Holding can repeat indefinitely if scan_done is false
+
+The problem: Even after the scanner reaches ScanDone and sets `scan_done = true`, if the tug is already in the Decision→Holding loop, it might take the Holding branch before checking scan_done again. But actually, Decision is urgent, so once scan_done becomes true, the next time the tug reaches Decision, it should be able to take the Deliver path.
+
+Wait, let me reconsider: The guard on Decision → Holding has no condition, so even if scan_done is true, the tug could non-deterministically choose Holding instead of Deliver. This creates a situation where the tug might never take the Deliver branch.
+
+The fix for Query 2: The transition from Decision to Holding should only be taken when scan_done is false. I need to add guard `!scan_done` on the Decision → Holding transition.
+
+Let me verify these fixes don't break the passing queries:
+- `E<> scanner.ScanDone` - should still be reachable (no change to scanner)
+- `E<> tug.Done` - tug can still reach Done: wait for scan_done, then Pickup → Decision → Deliver → Done
+
+<?xml version='1.0' encoding='utf-8'?>
+<nta>
+<declaration>
+bool scan_done = false;
+</declaration><template><name>ScannerBot</name><declaration>clock x;</declaration><location id="id0" x="0" y="0"><name x="-15" y="-30">Idle</name><urgent /></location><location id="id1" x="220" y="0"><name x="195" y="-30">Scan</name><label kind="invariant" x="190" y="25">x &lt;= 4</label></location><location id="id2" x="440" y="0"><name x="395" y="-30">ScanDone</name></location><init ref="id0" /><transition><source ref="id0" /><target ref="id1" /><label kind="assignment" x="75" y="-20">x = 0</label></transition><transition><source ref="id1" /><target ref="id2" /><label kind="guard" x="275" y="-35">x &gt;= 2</label><label kind="assignment" x="255" y="15">scan_done = true</label></transition></template><template><name>BaggageTug</name><declaration>clock y;</declaration><location id="id10" x="0" y="220"><name x="-15" y="190">Idle</name><urgent /></location><location id="id11" x="220" y="220"><name x="195" y="190">Pickup</name><label kind="invariant" x="190" y="245">y &lt;= 2</label></location><location id="id12" x="440" y="220"><name x="405" y="190">Decision</name><urgent /></location><location id="id13" x="660" y="170"><name x="630" y="140">Deliver</name><label kind="invariant" x="630" y="195">y &lt;= 3</label></location><location id="id14" x="660" y="300"><name x="630" y="270">Holding</name><label kind="invariant" x="630" y="325">y &lt;= 2</label></location><location id="id15" x="880" y="170"><name x="860" y="140">Done</name></location><init ref="id10" /><transition><source ref="id10" /><target ref="id11" /><label kind="guard" x="75" y="185">scan_done</label><label kind="assignment" x="75" y="205">y = 0</label></transition><transition><source ref="id11" /><target ref="id12" /><label kind="guard" x="275" y="185">y &gt;= 1</label></transition><transition><source ref="id12" /><target ref="id13" /><label kind="guard" x="495" y="145">scan_done</label><label kind="assignment" x="500" y="175">y = 0</label></transition><transition><source ref="id12" /><target ref="id14" /><label kind="guard" x="500" y="265">!scan_done</label><label kind="assignment" x="500" y="285">y = 0</label></transition><transition><source ref="id14" /><target ref="id12" /><label kind="guard" x="545" y="345">y &gt;= 1</label></transition><transition><source ref="id13" /><target ref="id15" /><label kind="guard" x="725" y="135">y &gt;= 1</label></transition></template><system>
+scanner = ScannerBot();
+tug = BaggageTug();
+system scanner, tug;
+</system><queries><query><formula>A[] (tug.Pickup imply scan_done)</formula><comment /></query><query><formula>scanner.ScanDone --&gt; tug.Deliver</formula><comment /></query><query><formula>E&lt;&gt; scanner.ScanDone</formula><comment /></query><query><formula>E&lt;&gt; tug.Done</formula><comment /></query></queries></nta>

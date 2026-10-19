@@ -1,0 +1,48 @@
+{
+  "domain": "space robotics",
+  "robots": [
+    "ScoutRover",
+    "CarrierRover"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "ordering_prerequisite",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "missing_energy_guard",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "scout": [
+        "scout.Done"
+      ],
+      "carrier": [
+        "carrier.ReturnBase"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> scout.Done",
+        "comment": "Goal preserved: scout can still reach Done",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> carrier.ReturnBase",
+        "comment": "Goal preserved: carrier can still reach ReturnBase",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

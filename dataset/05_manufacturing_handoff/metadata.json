@@ -1,0 +1,56 @@
+{
+  "model": "05_manufacturing_handoff",
+  "domain": "manufacturing",
+  "robots": [
+    "ArmBot",
+    "MobileRobot"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "mutual_exclusion_missing_guard",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "conditional_response_liveness",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "queries": {
+    "P1": {
+      "formula": "A[] not (arm.Weld && mobile.LoadZone)",
+      "expected": "FAIL"
+    },
+    "P2": {
+      "formula": "arm.HandoffDone --> mobile.Deliver",
+      "expected": "FAIL"
+    }
+  },
+  "benchmark_stage": "faulty_only",
+  "goal_reachability": {
+    "goal_locations": {
+      "arm": [
+        "arm.HandoffDone"
+      ],
+      "mobile": [
+        "mobile.Done"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> arm.HandoffDone",
+        "comment": "Goal preserved: arm can still reach HandoffDone",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> mobile.Done",
+        "comment": "Goal preserved: mobile can still reach Done",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "domain": "battery manufacturing",
+  "robots": [
+    "CoatingRobot",
+    "TransportAMR"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "ordering_prerequisite",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "mutual_exclusion",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "coater": [
+        "coater.Done"
+      ],
+      "transport": [
+        "transport.CuringZone"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> coater.Done",
+        "comment": "Goal preserved: coater can still reach Done",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> transport.CuringZone",
+        "comment": "Goal preserved: transport can still reach CuringZone",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

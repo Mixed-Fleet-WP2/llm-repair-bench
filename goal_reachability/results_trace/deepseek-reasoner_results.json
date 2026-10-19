@@ -1,0 +1,1016 @@
+[
+  {
+    "mission": "01_warehouse_inspection",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (carrier.Pickup imply scan_done)",
+      "A[] not (inspector.Corridor && carrier.Corridor)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (carrier.Pickup imply scan_done)",
+      "A[] not (inspector.Corridor && carrier.Corridor)",
+      "E<> inspector.Done",
+      "E<> carrier.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 96.68600463867188
+  },
+  {
+    "mission": "02_harbor_loading",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] not (crane.Swing && agv.LoadZone)",
+      "A[] (agv.Depart imply cargo_loaded)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] not (crane.Swing && agv.LoadZone)",
+      "A[] (agv.Depart imply cargo_loaded)",
+      "E<> crane.Done",
+      "E<> agv.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 86.51968622207642
+  },
+  {
+    "mission": "03_hospital_delivery",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] not (sanitation.Clean && delivery.PatientRoom)",
+      "A<> delivery.Done"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] not (sanitation.Clean && delivery.PatientRoom)",
+      "A<> delivery.Done",
+      "E<> sanitation.Done",
+      "E<> delivery.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 97.76180267333984
+  },
+  {
+    "mission": "04_agricultural_spraying",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (sprayer.Spray imply field_scanned)",
+      "A[] (sprayer.Spray imply sprayer.t <= 5)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (sprayer.Spray imply field_scanned)",
+      "A[] (sprayer.Spray imply sprayer.t <= 5)",
+      "E<> scout.Done",
+      "E<> sprayer.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 17.87067151069641
+  },
+  {
+    "mission": "05_manufacturing_handoff",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] not (arm.Weld && mobile.LoadZone)",
+      "arm.HandoffDone --> mobile.Deliver"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 2,
+    "final_failing": [],
+    "final_passing": [
+      "A[] not (arm.Weld && mobile.LoadZone)",
+      "arm.HandoffDone --> mobile.Deliver",
+      "E<> arm.HandoffDone",
+      "E<> mobile.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 1,
+        "n_passing": 3,
+        "regressions": [],
+        "llm_valid": true
+      },
+      {
+        "attempt": 2,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 353.08747267723083
+  },
+  {
+    "mission": "06_disaster_response",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (ugv.EnterZone imply map_done)",
+      "A[] (ugv.Search imply !hazard_active)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (ugv.EnterZone imply map_done)",
+      "A[] (ugv.Search imply !hazard_active)",
+      "E<> drone.Done",
+      "E<> ugv.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 76.92037343978882
+  },
+  {
+    "mission": "07_mining_haul",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] not (drill.Drill && hauler.Tunnel)",
+      "A[] (hauler.Transport imply load_weight <= MAX_LOAD)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] not (drill.Drill && hauler.Tunnel)",
+      "A[] (hauler.Transport imply load_weight <= MAX_LOAD)",
+      "E<> drill.Done",
+      "E<> hauler.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 138.42617273330688
+  },
+  {
+    "mission": "08_construction_lift",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (crane.Lift imply survey_done)",
+      "A[] (crane.Lift imply crane.t <= 5)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (crane.Lift imply survey_done)",
+      "A[] (crane.Lift imply crane.t <= 5)",
+      "E<> drone.Done",
+      "E<> crane.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 98.4454596042633
+  },
+  {
+    "mission": "09_airport_baggage",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (tug.Pickup imply scan_done)",
+      "scanner.ScanDone --> tug.Deliver"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 2,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (tug.Pickup imply scan_done)",
+      "scanner.ScanDone --> tug.Deliver",
+      "E<> scanner.ScanDone",
+      "E<> tug.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 1,
+        "n_passing": 3,
+        "regressions": [],
+        "llm_valid": true
+      },
+      {
+        "attempt": 2,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 1118.9735760688782
+  },
+  {
+    "mission": "10_cleanroom_transfer",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (courier.CleanRoom imply sterile_ready)",
+      "A[] not (sterilizer.Airlock && courier.Airlock)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (courier.CleanRoom imply sterile_ready)",
+      "A[] not (sterilizer.Airlock && courier.Airlock)",
+      "E<> sterilizer.Done",
+      "E<> courier.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 128.79165124893188
+  },
+  {
+    "mission": "11_lunar_sample_transfer",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (carrier.Collect imply sample_mapped)",
+      "A[] (carrier.ReturnBase imply battery >= MIN_BATTERY)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (carrier.Collect imply sample_mapped)",
+      "A[] (carrier.ReturnBase imply battery >= MIN_BATTERY)",
+      "E<> scout.Done",
+      "E<> carrier.ReturnBase"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 70.4339668750763
+  },
+  {
+    "mission": "12_offshore_turbine_inspection",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] not (drone.RotorScan && climber.BladeAccess)",
+      "A[] (climber.BladeAccess imply climber.t <= 5)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] not (drone.RotorScan && climber.BladeAccess)",
+      "A[] (climber.BladeAccess imply climber.t <= 5)",
+      "E<> drone.Done",
+      "E<> climber.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 115.44912457466125
+  },
+  {
+    "mission": "13_railway_maintenance",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (repair.Position imply defect_confirmed)",
+      "A[] (repair.Repair imply track_closed)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (repair.Position imply defect_confirmed)",
+      "A[] (repair.Repair imply track_closed)",
+      "E<> inspector.ConfirmDefect",
+      "E<> repair.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 81.36697673797607
+  },
+  {
+    "mission": "14_forestry_logging",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] not (feller.CutTree && hauler.CutZone)",
+      "feller.TreeFelled --> hauler.Collect"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] not (feller.CutTree && hauler.CutZone)",
+      "feller.TreeFelled --> hauler.Collect",
+      "E<> feller.TreeFelled",
+      "E<> hauler.Collect"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 413.7789182662964
+  },
+  {
+    "mission": "15_firefighting",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (ugv.ApproachFire imply hotspot_localized)",
+      "A[] not (drone.SmokeZone && ugv.SmokeZone)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (ugv.ApproachFire imply hotspot_localized)",
+      "A[] not (drone.SmokeZone && ugv.SmokeZone)",
+      "E<> drone.Done",
+      "E<> ugv.Suppress"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 203.19929146766663
+  },
+  {
+    "mission": "16_waste_sorting",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (carrier.Transport imply bin_fill <= BIN_CAPACITY)",
+      "A[] (carrier.LoadBin imply carrier.t <= 4)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (carrier.Transport imply bin_fill <= BIN_CAPACITY)",
+      "A[] (carrier.LoadBin imply carrier.t <= 4)",
+      "E<> sorter.Deposit",
+      "E<> carrier.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 182.63963913917542
+  },
+  {
+    "mission": "17_laboratory_automation",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (analysis.LoadSample imply sample_prepared)",
+      "A[] (analysis.Analyze imply chamber_clean)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (analysis.LoadSample imply sample_prepared)",
+      "A[] (analysis.Analyze imply chamber_clean)",
+      "E<> prep.Done",
+      "E<> analysis.Analyze"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 154.5688886642456
+  },
+  {
+    "mission": "18_underwater_pipeline",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] not (inspection.InspectSection && repair.PipeSection)",
+      "inspection.DefectFound --> repair.Repair"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] not (inspection.InspectSection && repair.PipeSection)",
+      "inspection.DefectFound --> repair.Repair",
+      "E<> inspection.DefectFound",
+      "E<> repair.Repair"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 630.5885355472565
+  },
+  {
+    "mission": "19_solar_farm_maintenance",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (cleaner.CleanPanel imply thermal_scan_done)",
+      "A[] (cleaner.CleanPanel imply cleaner.t <= 6)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (cleaner.CleanPanel imply thermal_scan_done)",
+      "A[] (cleaner.CleanPanel imply cleaner.t <= 6)",
+      "E<> drone.Done",
+      "E<> cleaner.Done"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 73.26376461982727
+  },
+  {
+    "mission": "20_retail_warehouse_restocking",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (amr.EnterAisle imply aisle_clear)",
+      "scanner.ShelfVerified --> amr.Restock"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 2,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (amr.EnterAisle imply aisle_clear)",
+      "scanner.ShelfVerified --> amr.Restock",
+      "E<> scanner.ShelfVerified",
+      "E<> amr.Restock"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 2,
+        "n_passing": 2,
+        "regressions": [
+          3,
+          4
+        ],
+        "llm_valid": true
+      },
+      {
+        "attempt": 2,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 371.62366223335266
+  },
+  {
+    "mission": "21_pharmaceutical_packaging",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (packing.PickBatch imply quality_checked)",
+      "A[] (packing.EnterSterileZone imply sterile_zone_ready)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (packing.PickBatch imply quality_checked)",
+      "A[] (packing.EnterSterileZone imply sterile_zone_ready)",
+      "E<> inspection.CheckComplete",
+      "E<> packing.Pack"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 70.20660972595215
+  },
+  {
+    "mission": "22_airport_runway_inspection",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] not (drone.ScanRunway && vehicle.RunwayEntry)",
+      "A[] (vehicle.RunwayEntry imply vehicle.t <= 5)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] not (drone.ScanRunway && vehicle.RunwayEntry)",
+      "A[] (vehicle.RunwayEntry imply vehicle.t <= 5)",
+      "E<> drone.Done",
+      "E<> vehicle.RepairMark"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 185.83052492141724
+  },
+  {
+    "mission": "23_data_center_maintenance",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (service.OpenRack imply rack_safe)",
+      "inspector.RackCleared --> service.ReplaceUnit"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (service.OpenRack imply rack_safe)",
+      "inspector.RackCleared --> service.ReplaceUnit",
+      "E<> inspector.RackCleared",
+      "E<> service.ReplaceUnit"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 545.1371922492981
+  },
+  {
+    "mission": "24_vineyard_harvesting",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (harvester.Harvest imply row_mapped)",
+      "A[] (harvester.Transport imply crate_load <= CRATE_CAPACITY)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (harvester.Harvest imply row_mapped)",
+      "A[] (harvester.Transport imply crate_load <= CRATE_CAPACITY)",
+      "E<> vision.Done",
+      "E<> harvester.Transport"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 83.32260012626648
+  },
+  {
+    "mission": "25_shipyard_welding",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] not (welder.WeldJoint && inspection.WeldZone)",
+      "A[] (inspection.WeldZone imply inspection.t <= 4)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] not (welder.WeldJoint && inspection.WeldZone)",
+      "A[] (inspection.WeldZone imply inspection.t <= 4)",
+      "E<> welder.CoolingZone",
+      "E<> inspection.InspectJoint"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 155.00285530090332
+  },
+  {
+    "mission": "26_nuclear_inspection",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (manipulator.EnterCell imply radiation_map_ready)",
+      "A[] (manipulator.HandleValve imply radiation_level <= SAFE_LEVEL)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (manipulator.EnterCell imply radiation_map_ready)",
+      "A[] (manipulator.HandleValve imply radiation_level <= SAFE_LEVEL)",
+      "E<> mapper.Done",
+      "E<> manipulator.HandleValve"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 73.21765804290771
+  },
+  {
+    "mission": "27_parcel_sorting",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (transfer.LoadTray imply tray_count <= TRAY_MAX)",
+      "sorter.BatchSorted --> transfer.Transfer"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (transfer.LoadTray imply tray_count <= TRAY_MAX)",
+      "sorter.BatchSorted --> transfer.Transfer",
+      "E<> sorter.BatchSorted",
+      "E<> transfer.Transfer"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 232.50246047973633
+  },
+  {
+    "mission": "28_tunnel_inspection",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] not (mapper.NarrowSection && repair.NarrowSection)",
+      "A[] (repair.Repair imply tunnel_map_done)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] not (mapper.NarrowSection && repair.NarrowSection)",
+      "A[] (repair.Repair imply tunnel_map_done)",
+      "E<> mapper.MapComplete",
+      "E<> repair.Repair"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 122.81293153762817
+  },
+  {
+    "mission": "29_dairy_farm_automation",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (milker.MilkCycle imply milker.x <= 5)",
+      "A[] (feeder.CrossGate imply gate_clear)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (milker.MilkCycle imply milker.x <= 5)",
+      "A[] (feeder.CrossGate imply gate_clear)",
+      "E<> milker.Done",
+      "E<> feeder.Feed"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 166.18458366394043
+  },
+  {
+    "mission": "30_battery_factory",
+    "n_queries": 4,
+    "initial_failing": [
+      "A[] (transport.PickupCell imply coating_done)",
+      "A[] not (coater.CuringZone && transport.CuringZone)"
+    ],
+    "initial_passing": [
+      3,
+      4
+    ],
+    "status": "FIXED",
+    "attempts_used": 1,
+    "final_failing": [],
+    "final_passing": [
+      "A[] (transport.PickupCell imply coating_done)",
+      "A[] not (coater.CuringZone && transport.CuringZone)",
+      "E<> coater.Done",
+      "E<> transport.CuringZone"
+    ],
+    "has_ground_truth": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "n_failing": 0,
+        "n_passing": 4,
+        "regressions": [],
+        "llm_valid": true
+      }
+    ],
+    "error_msg": "",
+    "elapsed_s": 166.2018587589264
+  }
+]

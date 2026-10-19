@@ -1,0 +1,48 @@
+{
+  "domain": "airport operations",
+  "robots": [
+    "RunwayDrone",
+    "MaintenanceVehicle"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "mutual_exclusion",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "time_bounded_constraint",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "drone": [
+        "drone.Done"
+      ],
+      "vehicle": [
+        "vehicle.RepairMark"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> drone.Done",
+        "comment": "Goal preserved: drone can still reach Done",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> vehicle.RepairMark",
+        "comment": "Goal preserved: vehicle can still reach RepairMark",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

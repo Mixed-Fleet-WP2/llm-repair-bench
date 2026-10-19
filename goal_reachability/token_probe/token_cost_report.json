@@ -1,0 +1,1079 @@
+{
+  "description": "Token usage of LLM repair with vs without counterexample traces, summed over all attempts, as reported by each provider's API.",
+  "dataset": "with_reachability/missions_goal_reachability",
+  "missions": [
+    "08_construction_lift"
+  ],
+  "models_in_both_conditions": [
+    "claude-haiku-4-5",
+    "claude-sonnet-4-5",
+    "deepseek-reasoner",
+    "gemini-2.5-pro",
+    "gemini-3.6-flash",
+    "gpt-4o",
+    "gpt-5-mini",
+    "gpt-5-nano",
+    "gpt-5.1",
+    "grok-3-mini",
+    "grok-code-fast",
+    "qwen3.5-9b"
+  ],
+  "notes": [
+    "output_tokens includes reasoning_tokens where the provider reports them; visible_output_tokens = output_tokens - reasoning_tokens.",
+    "null = not reported by that provider (Anthropic and Ollama report no separate reasoning tokens; Anthropic counts any thinking in output_tokens).",
+    "Single run per model and condition; token counts vary between runs, especially reasoning tokens.",
+    "served_models lists the model id the provider reported; the xAI labels grok-3-mini and grok-code-fast were answered by grok-4.3."
+  ],
+  "totals": {
+    "no_trace": {
+      "input_tokens": 90428,
+      "output_tokens": 101901,
+      "reasoning_tokens": 77858,
+      "cached_input_tokens": 38080,
+      "visible_output_tokens": 24043,
+      "total_tokens": 192329,
+      "attempts": 31
+    },
+    "trace": {
+      "input_tokens": 114220,
+      "output_tokens": 94980,
+      "reasoning_tokens": 70519,
+      "cached_input_tokens": 47488,
+      "visible_output_tokens": 24461,
+      "total_tokens": 209200,
+      "attempts": 32
+    },
+    "trace_minus_no_trace": {
+      "input_tokens": {
+        "absolute": 23792,
+        "relative_pct": 26.3
+      },
+      "output_tokens": {
+        "absolute": -6921,
+        "relative_pct": -6.8
+      },
+      "reasoning_tokens": {
+        "absolute": -7339,
+        "relative_pct": -9.4
+      },
+      "cached_input_tokens": {
+        "absolute": 9408,
+        "relative_pct": 24.7
+      },
+      "visible_output_tokens": {
+        "absolute": 418,
+        "relative_pct": 1.7
+      },
+      "total_tokens": {
+        "absolute": 16871,
+        "relative_pct": 8.8
+      },
+      "attempts": 1,
+      "input_tokens_per_attempt": null
+    }
+  },
+  "per_model": {
+    "claude-haiku-4-5": {
+      "no_trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "claude-haiku-4-5-20251001"
+        ],
+        "status": [
+          "FAILED"
+        ],
+        "original_properties_repaired": "0/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 3,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 9375,
+          "output_tokens": 2375,
+          "reasoning_tokens": null,
+          "cached_input_tokens": 0,
+          "visible_output_tokens": 2375,
+          "total_tokens": 11750
+        },
+        "input_tokens_per_attempt": 3125,
+        "elapsed_s": 16.9
+      },
+      "trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "claude-haiku-4-5-20251001"
+        ],
+        "status": [
+          "FAILED"
+        ],
+        "original_properties_repaired": "0/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 3,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 11898,
+          "output_tokens": 2370,
+          "reasoning_tokens": null,
+          "cached_input_tokens": 0,
+          "visible_output_tokens": 2370,
+          "total_tokens": 14268
+        },
+        "input_tokens_per_attempt": 3966,
+        "elapsed_s": 16.9
+      },
+      "trace_minus_no_trace": {
+        "input_tokens": {
+          "absolute": 2523,
+          "relative_pct": 26.9
+        },
+        "output_tokens": {
+          "absolute": -5,
+          "relative_pct": -0.2
+        },
+        "reasoning_tokens": null,
+        "cached_input_tokens": {
+          "absolute": 0,
+          "relative_pct": null
+        },
+        "visible_output_tokens": {
+          "absolute": -5,
+          "relative_pct": -0.2
+        },
+        "total_tokens": {
+          "absolute": 2518,
+          "relative_pct": 21.4
+        },
+        "attempts": 0,
+        "input_tokens_per_attempt": {
+          "absolute": 841,
+          "relative_pct": 26.9
+        }
+      }
+    },
+    "claude-sonnet-4-5": {
+      "no_trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "claude-sonnet-4-5-20250929"
+        ],
+        "status": [
+          "FAILED"
+        ],
+        "original_properties_repaired": "0/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 3,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 9375,
+          "output_tokens": 2380,
+          "reasoning_tokens": null,
+          "cached_input_tokens": 0,
+          "visible_output_tokens": 2380,
+          "total_tokens": 11755
+        },
+        "input_tokens_per_attempt": 3125,
+        "elapsed_s": 22.5
+      },
+      "trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "claude-sonnet-4-5-20250929"
+        ],
+        "status": [
+          "FAILED"
+        ],
+        "original_properties_repaired": "0/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 3,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 11898,
+          "output_tokens": 2370,
+          "reasoning_tokens": null,
+          "cached_input_tokens": 0,
+          "visible_output_tokens": 2370,
+          "total_tokens": 14268
+        },
+        "input_tokens_per_attempt": 3966,
+        "elapsed_s": 22.4
+      },
+      "trace_minus_no_trace": {
+        "input_tokens": {
+          "absolute": 2523,
+          "relative_pct": 26.9
+        },
+        "output_tokens": {
+          "absolute": -10,
+          "relative_pct": -0.4
+        },
+        "reasoning_tokens": null,
+        "cached_input_tokens": {
+          "absolute": 0,
+          "relative_pct": null
+        },
+        "visible_output_tokens": {
+          "absolute": -10,
+          "relative_pct": -0.4
+        },
+        "total_tokens": {
+          "absolute": 2513,
+          "relative_pct": 21.4
+        },
+        "attempts": 0,
+        "input_tokens_per_attempt": {
+          "absolute": 841,
+          "relative_pct": 26.9
+        }
+      }
+    },
+    "deepseek-reasoner": {
+      "no_trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "deepseek-v4-pro"
+        ],
+        "status": [
+          "FIXED"
+        ],
+        "original_properties_repaired": "2/2",
+        "attempts": 1,
+        "goal_rejected_attempts": 0,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 2955,
+          "output_tokens": 11627,
+          "reasoning_tokens": 10871,
+          "cached_input_tokens": 2944,
+          "visible_output_tokens": 756,
+          "total_tokens": 14582
+        },
+        "input_tokens_per_attempt": 2955,
+        "elapsed_s": 155.2
+      },
+      "trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "deepseek-v4-pro"
+        ],
+        "status": [
+          "FIXED"
+        ],
+        "original_properties_repaired": "2/2",
+        "attempts": 1,
+        "goal_rejected_attempts": 0,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 3598,
+          "output_tokens": 8399,
+          "reasoning_tokens": 7643,
+          "cached_input_tokens": 3584,
+          "visible_output_tokens": 756,
+          "total_tokens": 11997
+        },
+        "input_tokens_per_attempt": 3598,
+        "elapsed_s": 102.1
+      },
+      "trace_minus_no_trace": {
+        "input_tokens": {
+          "absolute": 643,
+          "relative_pct": 21.8
+        },
+        "output_tokens": {
+          "absolute": -3228,
+          "relative_pct": -27.8
+        },
+        "reasoning_tokens": {
+          "absolute": -3228,
+          "relative_pct": -29.7
+        },
+        "cached_input_tokens": {
+          "absolute": 640,
+          "relative_pct": 21.7
+        },
+        "visible_output_tokens": {
+          "absolute": 0,
+          "relative_pct": 0.0
+        },
+        "total_tokens": {
+          "absolute": -2585,
+          "relative_pct": -17.7
+        },
+        "attempts": 0,
+        "input_tokens_per_attempt": {
+          "absolute": 643,
+          "relative_pct": 21.8
+        }
+      }
+    },
+    "gemini-2.5-pro": {
+      "no_trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "gemini-2.5-pro"
+        ],
+        "status": [
+          "FAILED"
+        ],
+        "original_properties_repaired": "0/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 3,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 8904,
+          "output_tokens": 21075,
+          "reasoning_tokens": 18582,
+          "cached_input_tokens": null,
+          "visible_output_tokens": 2493,
+          "total_tokens": 29979
+        },
+        "input_tokens_per_attempt": 2968,
+        "elapsed_s": 158.9
+      },
+      "trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "gemini-2.5-pro"
+        ],
+        "status": [
+          "FAILED"
+        ],
+        "original_properties_repaired": "0/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 3,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 10542,
+          "output_tokens": 16698,
+          "reasoning_tokens": 14205,
+          "cached_input_tokens": null,
+          "visible_output_tokens": 2493,
+          "total_tokens": 27240
+        },
+        "input_tokens_per_attempt": 3514,
+        "elapsed_s": 122.0
+      },
+      "trace_minus_no_trace": {
+        "input_tokens": {
+          "absolute": 1638,
+          "relative_pct": 18.4
+        },
+        "output_tokens": {
+          "absolute": -4377,
+          "relative_pct": -20.8
+        },
+        "reasoning_tokens": {
+          "absolute": -4377,
+          "relative_pct": -23.6
+        },
+        "cached_input_tokens": null,
+        "visible_output_tokens": {
+          "absolute": 0,
+          "relative_pct": 0.0
+        },
+        "total_tokens": {
+          "absolute": -2739,
+          "relative_pct": -9.1
+        },
+        "attempts": 0,
+        "input_tokens_per_attempt": {
+          "absolute": 546,
+          "relative_pct": 18.4
+        }
+      }
+    },
+    "gemini-3.6-flash": {
+      "no_trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "gemini-3.6-flash"
+        ],
+        "status": [
+          "FIXED"
+        ],
+        "original_properties_repaired": "2/2",
+        "attempts": 1,
+        "goal_rejected_attempts": 0,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 2968,
+          "output_tokens": 6236,
+          "reasoning_tokens": 5407,
+          "cached_input_tokens": null,
+          "visible_output_tokens": 829,
+          "total_tokens": 9204
+        },
+        "input_tokens_per_attempt": 2968,
+        "elapsed_s": 28.7
+      },
+      "trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "gemini-3.6-flash"
+        ],
+        "status": [
+          "FIXED"
+        ],
+        "original_properties_repaired": "2/2",
+        "attempts": 1,
+        "goal_rejected_attempts": 0,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 3661,
+          "output_tokens": 7212,
+          "reasoning_tokens": 6383,
+          "cached_input_tokens": null,
+          "visible_output_tokens": 829,
+          "total_tokens": 10873
+        },
+        "input_tokens_per_attempt": 3661,
+        "elapsed_s": 33.8
+      },
+      "trace_minus_no_trace": {
+        "input_tokens": {
+          "absolute": 693,
+          "relative_pct": 23.3
+        },
+        "output_tokens": {
+          "absolute": 976,
+          "relative_pct": 15.7
+        },
+        "reasoning_tokens": {
+          "absolute": 976,
+          "relative_pct": 18.1
+        },
+        "cached_input_tokens": null,
+        "visible_output_tokens": {
+          "absolute": 0,
+          "relative_pct": 0.0
+        },
+        "total_tokens": {
+          "absolute": 1669,
+          "relative_pct": 18.1
+        },
+        "attempts": 0,
+        "input_tokens_per_attempt": {
+          "absolute": 693,
+          "relative_pct": 23.3
+        }
+      }
+    },
+    "gpt-4o": {
+      "no_trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "gpt-4o-2024-08-06"
+        ],
+        "status": [
+          "FAILED"
+        ],
+        "original_properties_repaired": "0/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 3,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 8370,
+          "output_tokens": 2234,
+          "reasoning_tokens": 0,
+          "cached_input_tokens": 5120,
+          "visible_output_tokens": 2234,
+          "total_tokens": 10604
+        },
+        "input_tokens_per_attempt": 2790,
+        "elapsed_s": 16.8
+      },
+      "trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "gpt-4o-2024-08-06"
+        ],
+        "status": [
+          "FAILED"
+        ],
+        "original_properties_repaired": "0/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 3,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 10254,
+          "output_tokens": 2273,
+          "reasoning_tokens": 0,
+          "cached_input_tokens": 6400,
+          "visible_output_tokens": 2273,
+          "total_tokens": 12527
+        },
+        "input_tokens_per_attempt": 3418,
+        "elapsed_s": 17.0
+      },
+      "trace_minus_no_trace": {
+        "input_tokens": {
+          "absolute": 1884,
+          "relative_pct": 22.5
+        },
+        "output_tokens": {
+          "absolute": 39,
+          "relative_pct": 1.7
+        },
+        "reasoning_tokens": {
+          "absolute": 0,
+          "relative_pct": null
+        },
+        "cached_input_tokens": {
+          "absolute": 1280,
+          "relative_pct": 25.0
+        },
+        "visible_output_tokens": {
+          "absolute": 39,
+          "relative_pct": 1.7
+        },
+        "total_tokens": {
+          "absolute": 1923,
+          "relative_pct": 18.1
+        },
+        "attempts": 0,
+        "input_tokens_per_attempt": {
+          "absolute": 628,
+          "relative_pct": 22.5
+        }
+      }
+    },
+    "gpt-5-mini": {
+      "no_trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "gpt-5-mini-2025-08-07"
+        ],
+        "status": [
+          "FIXED"
+        ],
+        "original_properties_repaired": "2/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 2,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 8367,
+          "output_tokens": 9900,
+          "reasoning_tokens": 7680,
+          "cached_input_tokens": 5376,
+          "visible_output_tokens": 2220,
+          "total_tokens": 18267
+        },
+        "input_tokens_per_attempt": 2789,
+        "elapsed_s": 72.7
+      },
+      "trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "gpt-5-mini-2025-08-07"
+        ],
+        "status": [
+          "FIXED"
+        ],
+        "original_properties_repaired": "2/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 2,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 10251,
+          "output_tokens": 8493,
+          "reasoning_tokens": 6272,
+          "cached_input_tokens": 6656,
+          "visible_output_tokens": 2221,
+          "total_tokens": 18744
+        },
+        "input_tokens_per_attempt": 3417,
+        "elapsed_s": 63.7
+      },
+      "trace_minus_no_trace": {
+        "input_tokens": {
+          "absolute": 1884,
+          "relative_pct": 22.5
+        },
+        "output_tokens": {
+          "absolute": -1407,
+          "relative_pct": -14.2
+        },
+        "reasoning_tokens": {
+          "absolute": -1408,
+          "relative_pct": -18.3
+        },
+        "cached_input_tokens": {
+          "absolute": 1280,
+          "relative_pct": 23.8
+        },
+        "visible_output_tokens": {
+          "absolute": 1,
+          "relative_pct": 0.0
+        },
+        "total_tokens": {
+          "absolute": 477,
+          "relative_pct": 2.6
+        },
+        "attempts": 0,
+        "input_tokens_per_attempt": {
+          "absolute": 628,
+          "relative_pct": 22.5
+        }
+      }
+    },
+    "gpt-5-nano": {
+      "no_trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "gpt-5-nano-2025-08-07"
+        ],
+        "status": [
+          "FIXED"
+        ],
+        "original_properties_repaired": "2/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 1,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 8367,
+          "output_tokens": 25621,
+          "reasoning_tokens": 23424,
+          "cached_input_tokens": 5120,
+          "visible_output_tokens": 2197,
+          "total_tokens": 33988
+        },
+        "input_tokens_per_attempt": 2789,
+        "elapsed_s": 189.6
+      },
+      "trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "gpt-5-nano-2025-08-07"
+        ],
+        "status": [
+          "PARTIAL"
+        ],
+        "original_properties_repaired": "1/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 2,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 9428,
+          "output_tokens": 25886,
+          "reasoning_tokens": 23680,
+          "cached_input_tokens": 3328,
+          "visible_output_tokens": 2206,
+          "total_tokens": 35314
+        },
+        "input_tokens_per_attempt": 3143,
+        "elapsed_s": 199.7
+      },
+      "trace_minus_no_trace": {
+        "input_tokens": {
+          "absolute": 1061,
+          "relative_pct": 12.7
+        },
+        "output_tokens": {
+          "absolute": 265,
+          "relative_pct": 1.0
+        },
+        "reasoning_tokens": {
+          "absolute": 256,
+          "relative_pct": 1.1
+        },
+        "cached_input_tokens": {
+          "absolute": -1792,
+          "relative_pct": -35.0
+        },
+        "visible_output_tokens": {
+          "absolute": 9,
+          "relative_pct": 0.4
+        },
+        "total_tokens": {
+          "absolute": 1326,
+          "relative_pct": 3.9
+        },
+        "attempts": 0,
+        "input_tokens_per_attempt": {
+          "absolute": 354,
+          "relative_pct": 12.7
+        }
+      }
+    },
+    "gpt-5.1": {
+      "no_trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "gpt-5.1-2025-11-13"
+        ],
+        "status": [
+          "FAILED"
+        ],
+        "original_properties_repaired": "0/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 3,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 8367,
+          "output_tokens": 2223,
+          "reasoning_tokens": 0,
+          "cached_input_tokens": 5120,
+          "visible_output_tokens": 2223,
+          "total_tokens": 10590
+        },
+        "input_tokens_per_attempt": 2789,
+        "elapsed_s": 32.2
+      },
+      "trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "gpt-5.1-2025-11-13"
+        ],
+        "status": [
+          "FAILED"
+        ],
+        "original_properties_repaired": "0/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 3,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 10251,
+          "output_tokens": 2223,
+          "reasoning_tokens": 0,
+          "cached_input_tokens": 6400,
+          "visible_output_tokens": 2223,
+          "total_tokens": 12474
+        },
+        "input_tokens_per_attempt": 3417,
+        "elapsed_s": 21.2
+      },
+      "trace_minus_no_trace": {
+        "input_tokens": {
+          "absolute": 1884,
+          "relative_pct": 22.5
+        },
+        "output_tokens": {
+          "absolute": 0,
+          "relative_pct": 0.0
+        },
+        "reasoning_tokens": {
+          "absolute": 0,
+          "relative_pct": null
+        },
+        "cached_input_tokens": {
+          "absolute": 1280,
+          "relative_pct": 25.0
+        },
+        "visible_output_tokens": {
+          "absolute": 0,
+          "relative_pct": 0.0
+        },
+        "total_tokens": {
+          "absolute": 1884,
+          "relative_pct": 17.8
+        },
+        "attempts": 0,
+        "input_tokens_per_attempt": {
+          "absolute": 628,
+          "relative_pct": 22.5
+        }
+      }
+    },
+    "grok-3-mini": {
+      "no_trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "grok-4.3"
+        ],
+        "status": [
+          "FIXED"
+        ],
+        "original_properties_repaired": "2/2",
+        "attempts": 2,
+        "goal_rejected_attempts": 1,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 5844,
+          "output_tokens": 8172,
+          "reasoning_tokens": 6742,
+          "cached_input_tokens": 5760,
+          "visible_output_tokens": 1430,
+          "total_tokens": 14016
+        },
+        "input_tokens_per_attempt": 2922,
+        "elapsed_s": 70.8
+      },
+      "trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "grok-4.3"
+        ],
+        "status": [
+          "FAILED"
+        ],
+        "original_properties_repaired": "0/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 3,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 10632,
+          "output_tokens": 7240,
+          "reasoning_tokens": 5092,
+          "cached_input_tokens": 10560,
+          "visible_output_tokens": 2148,
+          "total_tokens": 17872
+        },
+        "input_tokens_per_attempt": 3544,
+        "elapsed_s": 59.4
+      },
+      "trace_minus_no_trace": {
+        "input_tokens": {
+          "absolute": 4788,
+          "relative_pct": 81.9
+        },
+        "output_tokens": {
+          "absolute": -932,
+          "relative_pct": -11.4
+        },
+        "reasoning_tokens": {
+          "absolute": -1650,
+          "relative_pct": -24.5
+        },
+        "cached_input_tokens": {
+          "absolute": 4800,
+          "relative_pct": 83.3
+        },
+        "visible_output_tokens": {
+          "absolute": 718,
+          "relative_pct": 50.2
+        },
+        "total_tokens": {
+          "absolute": 3856,
+          "relative_pct": 27.5
+        },
+        "attempts": 1,
+        "input_tokens_per_attempt": {
+          "absolute": 622,
+          "relative_pct": 21.3
+        }
+      }
+    },
+    "grok-code-fast": {
+      "no_trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "grok-4.3"
+        ],
+        "status": [
+          "FAILED"
+        ],
+        "original_properties_repaired": "0/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 3,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 8766,
+          "output_tokens": 7300,
+          "reasoning_tokens": 5152,
+          "cached_input_tokens": 8640,
+          "visible_output_tokens": 2148,
+          "total_tokens": 16066
+        },
+        "input_tokens_per_attempt": 2922,
+        "elapsed_s": 57.9
+      },
+      "trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "grok-4.3"
+        ],
+        "status": [
+          "FAILED"
+        ],
+        "original_properties_repaired": "0/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 3,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 10632,
+          "output_tokens": 9392,
+          "reasoning_tokens": 7244,
+          "cached_input_tokens": 10560,
+          "visible_output_tokens": 2148,
+          "total_tokens": 20024
+        },
+        "input_tokens_per_attempt": 3544,
+        "elapsed_s": 76.3
+      },
+      "trace_minus_no_trace": {
+        "input_tokens": {
+          "absolute": 1866,
+          "relative_pct": 21.3
+        },
+        "output_tokens": {
+          "absolute": 2092,
+          "relative_pct": 28.7
+        },
+        "reasoning_tokens": {
+          "absolute": 2092,
+          "relative_pct": 40.6
+        },
+        "cached_input_tokens": {
+          "absolute": 1920,
+          "relative_pct": 22.2
+        },
+        "visible_output_tokens": {
+          "absolute": 0,
+          "relative_pct": 0.0
+        },
+        "total_tokens": {
+          "absolute": 3958,
+          "relative_pct": 24.6
+        },
+        "attempts": 0,
+        "input_tokens_per_attempt": {
+          "absolute": 622,
+          "relative_pct": 21.3
+        }
+      }
+    },
+    "qwen3.5-9b": {
+      "no_trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "qwen3.5:9b"
+        ],
+        "status": [
+          "PARTIAL"
+        ],
+        "original_properties_repaired": "1/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 1,
+        "invalid_attempts": 1,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 8770,
+          "output_tokens": 2758,
+          "reasoning_tokens": null,
+          "cached_input_tokens": null,
+          "visible_output_tokens": 2758,
+          "total_tokens": 11528
+        },
+        "input_tokens_per_attempt": 2923,
+        "elapsed_s": 50.6
+      },
+      "trace": {
+        "missions": [
+          "08_construction_lift"
+        ],
+        "served_models": [
+          "qwen3.5:9b"
+        ],
+        "status": [
+          "FAILED"
+        ],
+        "original_properties_repaired": "0/2",
+        "attempts": 3,
+        "goal_rejected_attempts": 0,
+        "invalid_attempts": 0,
+        "attempts_without_usage": 0,
+        "tokens": {
+          "input_tokens": 11175,
+          "output_tokens": 2424,
+          "reasoning_tokens": null,
+          "cached_input_tokens": null,
+          "visible_output_tokens": 2424,
+          "total_tokens": 13599
+        },
+        "input_tokens_per_attempt": 3725,
+        "elapsed_s": 62.6
+      },
+      "trace_minus_no_trace": {
+        "input_tokens": {
+          "absolute": 2405,
+          "relative_pct": 27.4
+        },
+        "output_tokens": {
+          "absolute": -334,
+          "relative_pct": -12.1
+        },
+        "reasoning_tokens": null,
+        "cached_input_tokens": null,
+        "visible_output_tokens": {
+          "absolute": -334,
+          "relative_pct": -12.1
+        },
+        "total_tokens": {
+          "absolute": 2071,
+          "relative_pct": 18.0
+        },
+        "attempts": 0,
+        "input_tokens_per_attempt": {
+          "absolute": 802,
+          "relative_pct": 27.4
+        }
+      }
+    }
+  }
+}

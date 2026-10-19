@@ -1,0 +1,48 @@
+{
+  "mission": "28_tunnel_inspection",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] not (mapper.NarrowSection && repair.NarrowSection)",
+    "A[] (repair.Repair imply tunnel_map_done)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "PARTIAL",
+  "attempts_used": 3,
+  "final_failing": [
+    "A[] not (mapper.NarrowSection && repair.NarrowSection)"
+  ],
+  "final_passing": [
+    "A[] (repair.Repair imply tunnel_map_done)",
+    "E<> mapper.MapComplete",
+    "E<> repair.Repair"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 3,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "Command: UPPAAL_COMPILE_ONLY=&&/home/user/Desktop/uppaal-5.0.0-linux64/bin/verifyta with_reachability/results_trace/qwen3.5-9b/28_tunnel_inspection/attempt1.xml -f with_reachability/results_trace/qwen3.5-9b/28_tunnel_inspection/attempt1_xtr -t 1\nErr: with_reachability/results_trace/qwen3.5-9b/28_tunnel_inspection/attempt1.xml:/nta/template[2]/transition[2]/label[1]:1: [error] syntax error: unexpected T_ID, expecting end of file.\n",
+  "elapsed_s": 385.29639315605164
+}

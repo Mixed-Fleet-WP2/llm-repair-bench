@@ -1,0 +1,48 @@
+{
+  "domain": "laboratory automation",
+  "robots": [
+    "PrepRobot",
+    "AnalysisRobot"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "ordering_prerequisite",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "missing_guard",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "prep": [
+        "prep.Done"
+      ],
+      "analysis": [
+        "analysis.Analyze"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> prep.Done",
+        "comment": "Goal preserved: prep can still reach Done",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> analysis.Analyze",
+        "comment": "Goal preserved: analysis can still reach Analyze",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

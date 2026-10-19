@@ -1,0 +1,17 @@
+{
+  "description": "Documented corrections to goal_reachability results caused by pipeline defects. Raw result files are left unchanged; make_comparison_figures.py and evaluate_goal_preserving.py apply these on read.",
+  "corrections": [
+    {
+      "condition": "no_trace",
+      "model": "claude-haiku-4-5",
+      "mission": "01_warehouse_inspection",
+      "final_model": "attempt1.xml",
+      "corrected_status": "FIXED",
+      "corrected_attempts_used": 1,
+      "reason": "Pipeline defect: pyuppaal crashed on a <label> without x/y drawing coordinates (int() of None), so a valid candidate consumed attempt 1 and was never accepted. Fixed in llm_fixer.add_missing_layout.",
+      "evidence": "attempt1.xml re-verified with verifyta on 2026-10-08 after the fix: both original properties (queries 1, 2) and both goal queries (3, 4) satisfied.",
+      "as_run": {"status": "PARTIAL", "original_properties_passing": 1},
+      "corrected": {"original_properties_passing": 2}
+    }
+  ]
+}

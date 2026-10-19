@@ -1,0 +1,48 @@
+{
+  "domain": "railway maintenance",
+  "robots": [
+    "TrackInspector",
+    "RepairRobot"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "ordering_prerequisite",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "missing_guard",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "inspector": [
+        "inspector.ConfirmDefect"
+      ],
+      "repair": [
+        "repair.Done"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> inspector.ConfirmDefect",
+        "comment": "Goal preserved: inspector can still reach ConfirmDefect",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> repair.Done",
+        "comment": "Goal preserved: repair can still reach Done",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

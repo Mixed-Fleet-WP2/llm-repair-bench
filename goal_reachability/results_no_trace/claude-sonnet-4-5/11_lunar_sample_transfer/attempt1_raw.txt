@@ -1,0 +1,43 @@
+I'll analyze the failing queries step by step:
+
+**FAILING QUERY 1: `A[] (carrier.Collect imply sample_mapped)`**
+
+The query requires that whenever the carrier is in location `Collect`, `sample_mapped` must be true.
+
+Looking at the model:
+- `scout` transitions from `Idle` → `MapSample` (immediately, urgent) → `Done` (after 3-5 time units), setting `sample_mapped = true` on the last transition
+- `carrier` transitions from `Idle` → `Approach` (immediately, urgent) → `Collect` (after 1-2 time units)
+
+The problem: Both processes start with urgent `Idle` locations, so they transition immediately. The `carrier` can reach `Collect` in just 1 time unit minimum (Idle→Approach instantly, then wait 1 time unit), while `scout` needs at least 3 time units to set `sample_mapped = true` (Idle→MapSample instantly, then wait 3 time units). Therefore, `carrier` can enter `Collect` while `sample_mapped` is still false.
+
+**Fix**: The transition from `carrier.Approach` to `carrier.Collect` must guard on `sample_mapped` being true, ensuring the scout has completed mapping before collection begins.
+
+**FAILING QUERY 2: `A[] (carrier.ReturnBase imply battery >= MIN_BATTERY)`**
+
+The query requires that whenever the carrier is in location `ReturnBase`, battery must be >= 20.
+
+Looking at the model:
+- `battery` starts at 35
+- On transition `Approach` → `Collect`, the assignment sets `battery = 18`
+- `MIN_BATTERY = 20`
+- The carrier then transitions to `ReturnBase`
+
+The problem: The battery is set to 18 (which is < 20) before reaching `ReturnBase`, violating the invariant.
+
+**Fix**: The guard on the transition from `Collect` to `ReturnBase` should check `battery >= MIN_BATTERY`. However, since the battery is set to 18 in the previous transition, this would make `ReturnBase` unreachable. The actual fix is to ensure the battery assignment leaves enough charge. The assignment `battery = 18` should be changed to a value >= 20, or better yet, use a decrement that respects the minimum. Looking at the context, the most reasonable fix is to change the battery assignment to maintain the minimum requirement.
+
+Actually, re-examining: the guard `!sample_mapped` would be wrong per Rule 4 - we need `sample_mapped` to be true. And for battery, we need to either not drain it below the minimum, or check before going to ReturnBase. The most minimal fix is to change `battery = 18` to `battery = battery - 10` or similar, but that still might violate. The cleanest fix is `battery = 25` or to add a guard checking battery level before allowing ReturnBase.
+
+Let me reconsider: the transition to `Collect` sets battery to 18. The fix should prevent entering `ReturnBase` when battery is too low, OR ensure battery doesn't drop below minimum. Since battery starts at 35 and we want to allow the mission to complete, the fix is to change the battery assignment to not violate the constraint: `battery = 25` instead of `battery = 18`.
+
+<?xml version='1.0' encoding='utf-8'?>
+<nta>
+<declaration>
+bool sample_mapped = false;
+int battery = 35;
+const int MIN_BATTERY = 20;
+</declaration><template><name>ScoutRover</name><declaration>clock x;</declaration><location id="id0" x="0" y="0"><name x="-15" y="-30">Idle</name><urgent /></location><location id="id1" x="220" y="0"><name x="190" y="-30">MapSample</name><label kind="invariant" x="190" y="25">x &lt;= 5</label></location><location id="id2" x="440" y="0"><name x="420" y="-30">Done</name></location><init ref="id0" /><transition><source ref="id0" /><target ref="id1" /><label kind="assignment" x="70" y="-20">x = 0</label></transition><transition><source ref="id1" /><target ref="id2" /><label kind="guard" x="275" y="-35">x &gt;= 3</label><label kind="assignment" x="245" y="15">sample_mapped = true</label></transition></template><template><name>CarrierRover</name><declaration>clock y;</declaration><location id="id10" x="0" y="220"><name x="-15" y="190">Idle</name><urgent /></location><location id="id11" x="220" y="220"><name x="190" y="190">Approach</name><label kind="invariant" x="190" y="245">y &lt;= 2</label></location><location id="id12" x="440" y="220"><name x="410" y="190">Collect</name><label kind="invariant" x="410" y="245">y &lt;= 2</label></location><location id="id13" x="660" y="220"><name x="625" y="190">ReturnBase</name><label kind="invariant" x="630" y="245">y &lt;= 3</label></location><init ref="id10" /><transition><source ref="id10" /><target ref="id11" /><label kind="assignment" x="75" y="205">y = 0</label></transition><transition><source ref="id11" /><target ref="id12" /><label kind="guard" x="275" y="185">y &gt;= 1 &amp;&amp; sample_mapped</label><label kind="assignment" x="270" y="235">y = 0, battery = 25</label></transition><transition><source ref="id12" /><target ref="id13" /><label kind="guard" x="495" y="185">y &gt;= 1</label><label kind="assignment" x="490" y="235">y = 0</label></transition></template><system>
+scout = ScoutRover();
+carrier = CarrierRover();
+system scout, carrier;
+</system><queries><query><formula>A[] (carrier.Collect imply sample_mapped)</formula><comment /></query><query><formula>A[] (carrier.ReturnBase imply battery &gt;= MIN_BATTERY)</formula><comment /></query><query><formula>E&lt;&gt; scout.Done</formula><comment /></query><query><formula>E&lt;&gt; carrier.ReturnBase</formula><comment /></query></queries></nta>

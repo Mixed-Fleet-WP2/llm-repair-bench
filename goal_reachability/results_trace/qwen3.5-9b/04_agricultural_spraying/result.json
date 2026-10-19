@@ -1,0 +1,47 @@
+{
+  "mission": "04_agricultural_spraying",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] (sprayer.Spray imply field_scanned)",
+    "A[] (sprayer.Spray imply sprayer.t <= 5)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FIXED",
+  "attempts_used": 3,
+  "final_failing": [],
+  "final_passing": [
+    "A[] (sprayer.Spray imply field_scanned)",
+    "A[] (sprayer.Spray imply sprayer.t <= 5)",
+    "E<> scout.Done",
+    "E<> sprayer.Done"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 3,
+      "n_failing": 0,
+      "n_passing": 4,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 377.9328625202179
+}

@@ -1,0 +1,48 @@
+{
+  "domain": "offshore inspection",
+  "robots": [
+    "InspectionDrone",
+    "ClimberRobot"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "mutual_exclusion",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "time_bounded_constraint",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "drone": [
+        "drone.Done"
+      ],
+      "climber": [
+        "climber.Done"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> drone.Done",
+        "comment": "Goal preserved: drone can still reach Done",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> climber.Done",
+        "comment": "Goal preserved: climber can still reach Done",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

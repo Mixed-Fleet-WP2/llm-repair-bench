@@ -1,0 +1,48 @@
+{
+  "domain": "waste processing",
+  "robots": [
+    "SorterArm",
+    "BinCarrier"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "missing_capacity_guard",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "time_bounded_constraint",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "sorter": [
+        "sorter.Deposit"
+      ],
+      "carrier": [
+        "carrier.Done"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> sorter.Deposit",
+        "comment": "Goal preserved: sorter can still reach Deposit",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> carrier.Done",
+        "comment": "Goal preserved: carrier can still reach Done",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

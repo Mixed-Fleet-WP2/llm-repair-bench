@@ -1,0 +1,52 @@
+{
+  "mission": "14_forestry_logging",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] not (feller.CutTree && hauler.CutZone)",
+    "feller.TreeFelled --> hauler.Collect"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FAILED",
+  "attempts_used": 3,
+  "final_failing": [
+    "A[] not (feller.CutTree && hauler.CutZone)",
+    "feller.TreeFelled --> hauler.Collect"
+  ],
+  "final_passing": [
+    "E<> feller.TreeFelled",
+    "E<> hauler.Collect"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 3,
+      "n_passing": 1,
+      "regressions": [
+        4
+      ],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 3,
+      "n_failing": 3,
+      "n_passing": 1,
+      "regressions": [
+        4
+      ],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "Command: UPPAAL_COMPILE_ONLY=&&/home/user/Desktop/uppaal-5.0.0-linux64/bin/verifyta with_reachability/results_no_trace/qwen3.5-9b/14_forestry_logging/attempt2.xml -f with_reachability/results_no_trace/qwen3.5-9b/14_forestry_logging/attempt2_xtr -t 1\nErr: with_reachability/results_no_trace/qwen3.5-9b/14_forestry_logging/attempt2.xml:/nta/queries/query[2]/formula:1: [error] syntax error: unexpected T_EF.\n",
+  "elapsed_s": 607.0903480052948
+}

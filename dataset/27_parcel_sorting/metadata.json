@@ -1,0 +1,48 @@
+{
+  "domain": "logistics sorting",
+  "robots": [
+    "SortArm",
+    "TransferAMR"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "missing_capacity_guard",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "conditional_response_liveness",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "sorter": [
+        "sorter.BatchSorted"
+      ],
+      "transfer": [
+        "transfer.Transfer"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> sorter.BatchSorted",
+        "comment": "Goal preserved: sorter can still reach BatchSorted",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> transfer.Transfer",
+        "comment": "Goal preserved: transfer can still reach Transfer",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

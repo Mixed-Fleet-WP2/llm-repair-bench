@@ -1,0 +1,33 @@
+{
+  "mission": "16_waste_sorting",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] (carrier.Transport imply bin_fill <= BIN_CAPACITY)",
+    "A[] (carrier.LoadBin imply carrier.t <= 4)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FIXED",
+  "attempts_used": 1,
+  "final_failing": [],
+  "final_passing": [
+    "A[] (carrier.Transport imply bin_fill <= BIN_CAPACITY)",
+    "A[] (carrier.LoadBin imply carrier.t <= 4)",
+    "E<> sorter.Deposit",
+    "E<> carrier.Done"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 0,
+      "n_passing": 4,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 27.682668447494507
+}

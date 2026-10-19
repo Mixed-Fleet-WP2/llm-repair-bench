@@ -1,0 +1,51 @@
+{
+  "mission": "07_mining_haul",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] not (drill.Drill && hauler.Tunnel)",
+    "A[] (hauler.Transport imply load_weight <= MAX_LOAD)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FAILED",
+  "attempts_used": 3,
+  "final_failing": [
+    "A[] not (drill.Drill && hauler.Tunnel)",
+    "A[] (hauler.Transport imply load_weight <= MAX_LOAD)"
+  ],
+  "final_passing": [
+    "E<> drill.Done",
+    "E<> hauler.Done"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [],
+      "llm_valid": false
+    },
+    {
+      "attempt": 3,
+      "n_failing": 3,
+      "n_passing": 1,
+      "regressions": [
+        3,
+        4
+      ],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "Command: UPPAAL_COMPILE_ONLY=&&/home/user/Desktop/uppaal-5.0.0-linux64/bin/verifyta with_reachability/results_no_trace/gpt-4o/07_mining_haul/attempt1.xml -f with_reachability/results_no_trace/gpt-4o/07_mining_haul/attempt1_xtr -t 1\nErr: with_reachability/results_no_trace/gpt-4o/07_mining_haul/attempt1.xml:/nta/template[2]/transition[2]/label[2]:1: [error] Unknown identifier: max.\nwith_reachability/results_no_trace/gpt-4o/07_mining_haul/attempt1.xml:/nta/template[2]/transition[2]/label[2]:1: [error] Function expected.\n",
+  "elapsed_s": 44.461989641189575
+}

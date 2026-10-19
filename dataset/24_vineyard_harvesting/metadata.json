@@ -1,0 +1,48 @@
+{
+  "domain": "agricultural harvesting",
+  "robots": [
+    "VisionRover",
+    "HarvestRobot"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "ordering_prerequisite",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "missing_capacity_guard",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "vision": [
+        "vision.Done"
+      ],
+      "harvester": [
+        "harvester.Transport"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> vision.Done",
+        "comment": "Goal preserved: vision can still reach Done",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> harvester.Transport",
+        "comment": "Goal preserved: harvester can still reach Transport",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

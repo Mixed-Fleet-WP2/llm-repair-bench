@@ -1,0 +1,48 @@
+{
+  "mission": "11_lunar_sample_transfer",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] (carrier.Collect imply sample_mapped)",
+    "A[] (carrier.ReturnBase imply battery >= MIN_BATTERY)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "PARTIAL",
+  "attempts_used": 3,
+  "final_failing": [
+    "A[] (carrier.Collect imply sample_mapped)"
+  ],
+  "final_passing": [
+    "A[] (carrier.ReturnBase imply battery >= MIN_BATTERY)",
+    "E<> scout.Done",
+    "E<> carrier.ReturnBase"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": false
+    },
+    {
+      "attempt": 3,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": false
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 223.53251338005066
+}

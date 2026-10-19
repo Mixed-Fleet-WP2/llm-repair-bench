@@ -1,0 +1,40 @@
+{
+  "mission": "03_hospital_delivery",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] not (sanitation.Clean && delivery.PatientRoom)",
+    "A<> delivery.Done"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FIXED",
+  "attempts_used": 2,
+  "final_failing": [],
+  "final_passing": [
+    "A[] not (sanitation.Clean && delivery.PatientRoom)",
+    "A<> delivery.Done",
+    "E<> sanitation.Done",
+    "E<> delivery.Done"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 0,
+      "n_passing": 4,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 12.433466911315918
+}

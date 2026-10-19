@@ -1,0 +1,44 @@
+I need to analyze the two failing queries step by step.
+
+**FAILING QUERY 1: `A[] (amr.EnterAisle imply aisle_clear)`**
+
+This means: whenever the AMR is in location `EnterAisle`, the global boolean `aisle_clear` must be true.
+
+Looking at the model:
+- `aisle_clear` starts as `false`
+- The `ShelfScanner` sets `aisle_clear = true` when transitioning from `VerifyShelf` to `ShelfVerified` (after x >= 2)
+- The `RestockAMR` transitions from `Idle` to `EnterAisle` immediately (urgent location, no guard)
+
+The problem: The AMR can enter the aisle BEFORE the scanner has verified the shelf and set `aisle_clear = true`. Both processes start simultaneously, and since `Idle` in AMR is urgent, the AMR will immediately transition to `EnterAisle` while `aisle_clear` is still `false`.
+
+**Fix for Query 1:** The transition from `Idle` to `EnterAisle` in the AMR must be guarded by `aisle_clear`.
+
+**FAILING QUERY 2: `scanner.ShelfVerified --> amr.Restock`**
+
+The `-->` operator means: if `scanner.ShelfVerified` is ever reached, then `amr.Restock` must eventually be reached afterward.
+
+Looking at the model:
+- Scanner reaches `ShelfVerified` and sets `shelf_verified = true`
+- AMR goes from `Idle` → `EnterAisle` → `Decision`
+- At `Decision`, AMR can either:
+  - Go to `Restock` if `shelf_verified` is true, OR
+  - Go to `Replan` (no guard, so always available)
+
+The problem: Even if `shelf_verified` is true, the AMR can choose the `Replan` transition instead of `Restock`, and then loop back to `Decision` and repeatedly choose `Replan` again, never reaching `Restock`.
+
+**Fix for Query 2:** The transition from `Decision` to `Replan` should only be taken when `shelf_verified` is false. Add guard `!shelf_verified` to the `Decision` → `Replan` transition.
+
+Let me verify these fixes don't break the passing queries:
+- `E<> scanner.ShelfVerified`: Still reachable (scanner runs independently)
+- `E<> amr.Restock`: Still reachable (AMR waits for aisle_clear, then for shelf_verified, then goes to Restock)
+
+<?xml version='1.0' encoding='utf-8'?>
+<nta>
+<declaration>
+bool shelf_verified = false;
+bool aisle_clear = false;
+</declaration><template><name>ShelfScanner</name><declaration>clock x;</declaration><location id="id0" x="0" y="0"><name x="-15" y="-30">Idle</name><urgent /></location><location id="id1" x="220" y="0"><name x="185" y="-30">VerifyShelf</name><label kind="invariant" x="190" y="25">x &lt;= 4</label></location><location id="id2" x="440" y="0"><name x="385" y="-30">ShelfVerified</name></location><init ref="id0" /><transition><source ref="id0" /><target ref="id1" /><label kind="assignment" x="75" y="-20">x = 0</label></transition><transition><source ref="id1" /><target ref="id2" /><label kind="guard" x="275" y="-35">x &gt;= 2</label><label kind="assignment" x="200" y="15">shelf_verified = true, aisle_clear = true</label></transition></template><template><name>RestockAMR</name><declaration>clock y;</declaration><location id="id10" x="0" y="220"><name x="-15" y="190">Idle</name><urgent /></location><location id="id11" x="220" y="220"><name x="185" y="190">EnterAisle</name><label kind="invariant" x="190" y="245">y &lt;= 2</label></location><location id="id12" x="440" y="220"><name x="405" y="190">Decision</name><urgent /></location><location id="id13" x="660" y="165"><name x="630" y="135">Restock</name><label kind="invariant" x="630" y="190">y &lt;= 3</label></location><location id="id14" x="660" y="300"><name x="625" y="270">Replan</name><label kind="invariant" x="630" y="325">y &lt;= 2</label></location><init ref="id10" /><transition><source ref="id10" /><target ref="id11" /><label kind="guard" x="75" y="185">aisle_clear</label><label kind="assignment" x="75" y="205">y = 0</label></transition><transition><source ref="id11" /><target ref="id12" /><label kind="guard" x="275" y="185">y &gt;= 1</label></transition><transition><source ref="id12" /><target ref="id13" /><label kind="guard" x="495" y="140">shelf_verified</label><label kind="assignment" x="500" y="170">y = 0</label></transition><transition><source ref="id12" /><target ref="id14" /><label kind="guard" x="445" y="270">!shelf_verified</label><label kind="assignment" x="500" y="285">y = 0</label></transition><transition><source ref="id14" /><target ref="id12" /><label kind="guard" x="555" y="345">y &gt;= 1</label></transition></template><system>
+scanner = ShelfScanner();
+amr = RestockAMR();
+system scanner, amr;
+</system><queries><query><formula>A[] (amr.EnterAisle imply aisle_clear)</formula><comment /></query><query><formula>scanner.ShelfVerified --&gt; amr.Restock</formula><comment /></query><query><formula>E&lt;&gt; scanner.ShelfVerified</formula><comment /></query><query><formula>E&lt;&gt; amr.Restock</formula><comment /></query></queries></nta>

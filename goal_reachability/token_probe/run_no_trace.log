@@ -1,0 +1,450 @@
+[36m  Models   : [1mgpt-5.1, gpt-5-mini, gpt-5-nano, gpt-4o, claude-sonnet-4-5, claude-haiku-4-5, grok-code-fast, grok-3-mini, deepseek-reasoner, gemini-3.6-flash, gemini-2.5-pro, qwen3.5:9b[0m[0m
+[36m  Missions : 1   Attempts/mission: 3[0m
+[36m  Mode     : [1mno-trace[0m (counterexample traces withheld from the LLM)[0m
+[36m  Missions dir: [1mwith_reachability/missions_goal_reachability[0m   Output: [1mwith_reachability/token_probe/results_no_trace[0m[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK (no-trace)  [LLM=gpt-5.1]  1 missions
+════════════════════════════════════════════════════════════[0m
+
+[1m[34m[1/1][0m [1m08_construction_lift[0m
+[36m    Attempt 1/3: waiting for LLM (gpt-5.1)…[0m
+[2m      LLM responded in 12.2s (2210 chars)[0m
+[36m    Attempt 1/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 2/3: waiting for LLM (gpt-5.1)…[0m
+[2m      LLM responded in 11.2s (2210 chars)[0m
+[36m    Attempt 2/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 3/3: waiting for LLM (gpt-5.1)…[0m
+[2m      LLM responded in 8.7s (2210 chars)[0m
+[36m    Attempt 3/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+  Status   : [1m[31mFAILED [0m  (32.2s)
+  Attempts : 3/3
+  [31mFailing  :[0m
+    [31m✗[0m A[] (crane.Lift imply survey_done)
+    [31m✗[0m A[] (crane.Lift imply crane.t <= 5)
+  [32mPassing  :[0m
+    [32m✓[0m E<> drone.Done
+    [32m✓[0m E<> crane.Done
+  [2mProgress :   #1:2fail/2pass REG  →  #2:2fail/2pass REG  →  #3:2fail/2pass REG[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK SUMMARY (no-trace)
+════════════════════════════════════════════════════════════[0m
+  [1mMission                       Status     Queries   Attempts    GT?     [0m
+  ───────────────────────────────────────────────────────────────
+  08_construction_lift          [1m[31mFAILED [0m  2/4 pass    3           [2mno[0m
+
+  [1mTotal:[0m 1  [32mFixed: 0[0m  [33mPartial: 0[0m  [31mFailed: 1[0m  [35mErrors: 0[0m  [2mSkipped: 0  Avg attempts: 3.0[0m
+[2m    Saved → gpt-5.1_results.json[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK (no-trace)  [LLM=gpt-5-mini]  1 missions
+════════════════════════════════════════════════════════════[0m
+
+[1m[34m[1/1][0m [1m08_construction_lift[0m
+[36m    Attempt 1/3: waiting for LLM (gpt-5-mini)…[0m
+[2m      LLM responded in 18.7s (2210 chars)[0m
+[36m    Attempt 1/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 2/3: waiting for LLM (gpt-5-mini)…[0m
+[2m      LLM responded in 22.8s (2210 chars)[0m
+[36m    Attempt 2/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 3/3: waiting for LLM (gpt-5-mini)…[0m
+[2m      LLM responded in 31.1s (2200 chars)[0m
+[36m    Attempt 3/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 0 failing / 4 passing[0m
+  Status   : [1m[32mFIXED  [0m  (72.7s)
+  Attempts : 3/3
+  [32mFailing  : none[0m
+  [32mPassing  :[0m
+    [32m✓[0m A[] (crane.Lift imply survey_done)
+    [32m✓[0m A[] (crane.Lift imply crane.t <= 5)
+    [32m✓[0m E<> drone.Done
+    [32m✓[0m E<> crane.Done
+  [2mProgress :   #1:2fail/2pass REG  →  #2:2fail/2pass REG  →  #3:0fail/4pass[0m
+[2m    Saved → results_no_trace/gpt-5-mini/08_construction_lift/[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK SUMMARY (no-trace)
+════════════════════════════════════════════════════════════[0m
+  [1mMission                       Status     Queries   Attempts    GT?     [0m
+  ───────────────────────────────────────────────────────────────
+  08_construction_lift          [1m[32mFIXED  [0m  4/4 pass    3           [2mno[0m
+
+  [1mTotal:[0m 1  [32mFixed: 1[0m  [33mPartial: 0[0m  [31mFailed: 0[0m  [35mErrors: 0[0m  [2mSkipped: 0  Avg attempts: 3.0[0m
+[2m    Saved → gpt-5-mini_results.json[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK (no-trace)  [LLM=gpt-5-nano]  1 missions
+════════════════════════════════════════════════════════════[0m
+
+[1m[34m[1/1][0m [1m08_construction_lift[0m
+[36m    Attempt 1/3: waiting for LLM (gpt-5-nano)…[0m
+[2m      LLM responded in 53.3s (2210 chars)[0m
+[36m    Attempt 1/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 2/3: waiting for LLM (gpt-5-nano)…[0m
+[2m      LLM responded in 80.3s (2156 chars)[0m
+[36m    Attempt 2/3: verifying with verifyta…[0m
+[2m      Verified in 0.1s — 2 failing / 2 passing[0m
+[36m    Attempt 3/3: waiting for LLM (gpt-5-nano)…[0m
+[2m      LLM responded in 55.8s (2176 chars)[0m
+[36m    Attempt 3/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 0 failing / 4 passing[0m
+  Status   : [1m[32mFIXED  [0m  (189.6s)
+  Attempts : 3/3
+  [32mFailing  : none[0m
+  [32mPassing  :[0m
+    [32m✓[0m A[] (crane.Lift imply survey_done)
+    [32m✓[0m A[] (crane.Lift imply crane.t <= 5)
+    [32m✓[0m E<> drone.Done
+    [32m✓[0m E<> crane.Done
+  [2mProgress :   #1:2fail/2pass REG  →  #2:2fail/2pass  →  #3:0fail/4pass[0m
+[2m    Saved → results_no_trace/gpt-5-nano/08_construction_lift/[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK SUMMARY (no-trace)
+════════════════════════════════════════════════════════════[0m
+  [1mMission                       Status     Queries   Attempts    GT?     [0m
+  ───────────────────────────────────────────────────────────────
+  08_construction_lift          [1m[32mFIXED  [0m  4/4 pass    3           [2mno[0m
+
+  [1mTotal:[0m 1  [32mFixed: 1[0m  [33mPartial: 0[0m  [31mFailed: 0[0m  [35mErrors: 0[0m  [2mSkipped: 0  Avg attempts: 3.0[0m
+[2m    Saved → gpt-5-nano_results.json[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK (no-trace)  [LLM=gpt-4o]  1 missions
+════════════════════════════════════════════════════════════[0m
+
+[1m[34m[1/1][0m [1m08_construction_lift[0m
+[36m    Attempt 1/3: waiting for LLM (gpt-4o)…[0m
+[2m      LLM responded in 5.3s (2211 chars)[0m
+[36m    Attempt 1/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 2/3: waiting for LLM (gpt-4o)…[0m
+[2m      LLM responded in 6.8s (2251 chars)[0m
+[36m    Attempt 2/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 3/3: waiting for LLM (gpt-4o)…[0m
+[2m      LLM responded in 4.6s (2221 chars)[0m
+[36m    Attempt 3/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+  Status   : [1m[31mFAILED [0m  (16.8s)
+  Attempts : 3/3
+  [31mFailing  :[0m
+    [31m✗[0m A[] (crane.Lift imply survey_done)
+    [31m✗[0m A[] (crane.Lift imply crane.t <= 5)
+  [32mPassing  :[0m
+    [32m✓[0m E<> drone.Done
+    [32m✓[0m E<> crane.Done
+  [2mProgress :   #1:2fail/2pass REG  →  #2:2fail/2pass REG  →  #3:2fail/2pass REG[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK SUMMARY (no-trace)
+════════════════════════════════════════════════════════════[0m
+  [1mMission                       Status     Queries   Attempts    GT?     [0m
+  ───────────────────────────────────────────────────────────────
+  08_construction_lift          [1m[31mFAILED [0m  2/4 pass    3           [2mno[0m
+
+  [1mTotal:[0m 1  [32mFixed: 0[0m  [33mPartial: 0[0m  [31mFailed: 1[0m  [35mErrors: 0[0m  [2mSkipped: 0  Avg attempts: 3.0[0m
+[2m    Saved → gpt-4o_results.json[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK (no-trace)  [LLM=claude-sonnet-4-5]  1 missions
+════════════════════════════════════════════════════════════[0m
+
+[1m[34m[1/1][0m [1m08_construction_lift[0m
+[36m    Attempt 1/3: waiting for LLM (claude-sonnet-4-5)…[0m
+[2m      LLM responded in 7.7s (2221 chars)[0m
+[36m    Attempt 1/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 2/3: waiting for LLM (claude-sonnet-4-5)…[0m
+[2m      LLM responded in 7.3s (2210 chars)[0m
+[36m    Attempt 2/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 3/3: waiting for LLM (claude-sonnet-4-5)…[0m
+[2m      LLM responded in 7.4s (2221 chars)[0m
+[36m    Attempt 3/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+  Status   : [1m[31mFAILED [0m  (22.5s)
+  Attempts : 3/3
+  [31mFailing  :[0m
+    [31m✗[0m A[] (crane.Lift imply survey_done)
+    [31m✗[0m A[] (crane.Lift imply crane.t <= 5)
+  [32mPassing  :[0m
+    [32m✓[0m E<> drone.Done
+    [32m✓[0m E<> crane.Done
+  [2mProgress :   #1:2fail/2pass REG  →  #2:2fail/2pass REG  →  #3:2fail/2pass REG[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK SUMMARY (no-trace)
+════════════════════════════════════════════════════════════[0m
+  [1mMission                       Status     Queries   Attempts    GT?     [0m
+  ───────────────────────────────────────────────────────────────
+  08_construction_lift          [1m[31mFAILED [0m  2/4 pass    3           [2mno[0m
+
+  [1mTotal:[0m 1  [32mFixed: 0[0m  [33mPartial: 0[0m  [31mFailed: 1[0m  [35mErrors: 0[0m  [2mSkipped: 0  Avg attempts: 3.0[0m
+[2m    Saved → claude-sonnet-4-5_results.json[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK (no-trace)  [LLM=claude-haiku-4-5]  1 missions
+════════════════════════════════════════════════════════════[0m
+
+[1m[34m[1/1][0m [1m08_construction_lift[0m
+[36m    Attempt 1/3: waiting for LLM (claude-haiku-4-5)…[0m
+[2m      LLM responded in 5.6s (2210 chars)[0m
+[36m    Attempt 1/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 2/3: waiting for LLM (claude-haiku-4-5)…[0m
+[2m      LLM responded in 5.6s (2221 chars)[0m
+[36m    Attempt 2/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 3/3: waiting for LLM (claude-haiku-4-5)…[0m
+[2m      LLM responded in 5.6s (2210 chars)[0m
+[36m    Attempt 3/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+  Status   : [1m[31mFAILED [0m  (16.9s)
+  Attempts : 3/3
+  [31mFailing  :[0m
+    [31m✗[0m A[] (crane.Lift imply survey_done)
+    [31m✗[0m A[] (crane.Lift imply crane.t <= 5)
+  [32mPassing  :[0m
+    [32m✓[0m E<> drone.Done
+    [32m✓[0m E<> crane.Done
+  [2mProgress :   #1:2fail/2pass REG  →  #2:2fail/2pass REG  →  #3:2fail/2pass REG[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK SUMMARY (no-trace)
+════════════════════════════════════════════════════════════[0m
+  [1mMission                       Status     Queries   Attempts    GT?     [0m
+  ───────────────────────────────────────────────────────────────
+  08_construction_lift          [1m[31mFAILED [0m  2/4 pass    3           [2mno[0m
+
+  [1mTotal:[0m 1  [32mFixed: 0[0m  [33mPartial: 0[0m  [31mFailed: 1[0m  [35mErrors: 0[0m  [2mSkipped: 0  Avg attempts: 3.0[0m
+[2m    Saved → claude-haiku-4-5_results.json[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK (no-trace)  [LLM=grok-code-fast]  1 missions
+════════════════════════════════════════════════════════════[0m
+
+[1m[34m[1/1][0m [1m08_construction_lift[0m
+[36m    Attempt 1/3: waiting for LLM (grok-code-fast)…[0m
+[2m      LLM responded in 21.3s (2210 chars)[0m
+[36m    Attempt 1/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 2/3: waiting for LLM (grok-code-fast)…[0m
+[2m      LLM responded in 16.5s (2210 chars)[0m
+[36m    Attempt 2/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 3/3: waiting for LLM (grok-code-fast)…[0m
+[2m      LLM responded in 20.8s (2210 chars)[0m
+[36m    Attempt 3/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+  Status   : [1m[31mFAILED [0m  (58.8s)
+  Attempts : 3/3
+  [31mFailing  :[0m
+    [31m✗[0m A[] (crane.Lift imply survey_done)
+    [31m✗[0m A[] (crane.Lift imply crane.t <= 5)
+  [32mPassing  :[0m
+    [32m✓[0m E<> drone.Done
+    [32m✓[0m E<> crane.Done
+  [2mProgress :   #1:2fail/2pass REG  →  #2:2fail/2pass REG  →  #3:2fail/2pass REG[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK SUMMARY (no-trace)
+════════════════════════════════════════════════════════════[0m
+  [1mMission                       Status     Queries   Attempts    GT?     [0m
+  ───────────────────────────────────────────────────────────────
+  08_construction_lift          [1m[31mFAILED [0m  2/4 pass    3           [2mno[0m
+
+  [1mTotal:[0m 1  [32mFixed: 0[0m  [33mPartial: 0[0m  [31mFailed: 1[0m  [35mErrors: 0[0m  [2mSkipped: 0  Avg attempts: 3.0[0m
+[2m    Saved → grok-code-fast_results.json[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK (no-trace)  [LLM=grok-3-mini]  1 missions
+════════════════════════════════════════════════════════════[0m
+
+[1m[34m[1/1][0m [1m08_construction_lift[0m
+[36m    Attempt 1/3: waiting for LLM (grok-3-mini)…[0m
+[2m      LLM responded in 20.0s (2210 chars)[0m
+[36m    Attempt 1/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 2/3: waiting for LLM (grok-3-mini)…[0m
+[2m      LLM responded in 29.6s (2110 chars)[0m
+[36m    Attempt 2/3: verifying with verifyta…[0m
+[2m      Verification failed after 0.0s[0m
+[36m    Attempt 3/3: waiting for LLM (grok-3-mini)…[0m
+[2m      LLM responded in 30.0s (2210 chars)[0m
+[36m    Attempt 3/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+  Status   : [1m[31mFAILED [0m  (79.7s)
+  Attempts : 3/3
+  [31mFailing  :[0m
+    [31m✗[0m A[] (crane.Lift imply survey_done)
+    [31m✗[0m A[] (crane.Lift imply crane.t <= 5)
+  [32mPassing  :[0m
+    [32m✓[0m E<> drone.Done
+    [32m✓[0m E<> crane.Done
+  [2mProgress :   #1:2fail/2pass REG  →  #2:2fail/2pass  →  #3:2fail/2pass REG[0m
+[33m⚠   Command: UPPAAL_COMPILE_ONLY=&&/home/user/Desktop/uppaal-5.0.0-linux64/bin/verifyta with_reachability/token_probe/results_no_trace/grok-3-mini/08_construction_lift/attempt2.xml -f with_reachability/token_probe/results_no_trace/grok-3-mini/08_construction_lift/attempt2_xtr -t 1
+Err: with_reachability/token_probe/results_no_trace/grok-3-mini/08_construction_lift/attempt2.xml:/nta/template[1]/transition[1]/label[1]:1: [error] syntax error: unexpected ';', expecting end of file.
+[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK SUMMARY (no-trace)
+════════════════════════════════════════════════════════════[0m
+  [1mMission                       Status     Queries   Attempts    GT?     [0m
+  ───────────────────────────────────────────────────────────────
+  08_construction_lift          [1m[31mFAILED [0m  2/4 pass    3           [2mno[0m
+
+  [1mTotal:[0m 1  [32mFixed: 0[0m  [33mPartial: 0[0m  [31mFailed: 1[0m  [35mErrors: 0[0m  [2mSkipped: 0  Avg attempts: 3.0[0m
+[2m    Saved → grok-3-mini_results.json[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK (no-trace)  [LLM=deepseek-reasoner]  1 missions
+════════════════════════════════════════════════════════════[0m
+
+[1m[34m[1/1][0m [1m08_construction_lift[0m
+[36m    Attempt 1/3: waiting for LLM (deepseek-reasoner)…[0m
+[2m      LLM responded in 155.1s (2200 chars)[0m
+[36m    Attempt 1/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 0 failing / 4 passing[0m
+  Status   : [1m[32mFIXED  [0m  (155.2s)
+  Attempts : 1/3
+  [32mFailing  : none[0m
+  [32mPassing  :[0m
+    [32m✓[0m A[] (crane.Lift imply survey_done)
+    [32m✓[0m A[] (crane.Lift imply crane.t <= 5)
+    [32m✓[0m E<> drone.Done
+    [32m✓[0m E<> crane.Done
+  [2mProgress :   #1:0fail/4pass[0m
+[2m    Saved → results_no_trace/deepseek-reasoner/08_construction_lift/[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK SUMMARY (no-trace)
+════════════════════════════════════════════════════════════[0m
+  [1mMission                       Status     Queries   Attempts    GT?     [0m
+  ───────────────────────────────────────────────────────────────
+  08_construction_lift          [1m[32mFIXED  [0m  4/4 pass    1           [2mno[0m
+
+  [1mTotal:[0m 1  [32mFixed: 1[0m  [33mPartial: 0[0m  [31mFailed: 0[0m  [35mErrors: 0[0m  [2mSkipped: 0  Avg attempts: 1.0[0m
+[2m    Saved → deepseek-reasoner_results.json[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK (no-trace)  [LLM=gemini-3.6-flash]  1 missions
+════════════════════════════════════════════════════════════[0m
+
+[1m[34m[1/1][0m [1m08_construction_lift[0m
+[36m    Attempt 1/3: waiting for LLM (gemini-3.6-flash)…[0m
+[2m      LLM responded in 22.8s (2200 chars)[0m
+[36m    Attempt 1/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 0 failing / 4 passing[0m
+  Status   : [1m[32mFIXED  [0m  (22.9s)
+  Attempts : 1/3
+  [32mFailing  : none[0m
+  [32mPassing  :[0m
+    [32m✓[0m A[] (crane.Lift imply survey_done)
+    [32m✓[0m A[] (crane.Lift imply crane.t <= 5)
+    [32m✓[0m E<> drone.Done
+    [32m✓[0m E<> crane.Done
+  [2mProgress :   #1:0fail/4pass[0m
+[2m    Saved → results_no_trace/gemini-3.6-flash/08_construction_lift/[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK SUMMARY (no-trace)
+════════════════════════════════════════════════════════════[0m
+  [1mMission                       Status     Queries   Attempts    GT?     [0m
+  ───────────────────────────────────────────────────────────────
+  08_construction_lift          [1m[32mFIXED  [0m  4/4 pass    1           [2mno[0m
+
+  [1mTotal:[0m 1  [32mFixed: 1[0m  [33mPartial: 0[0m  [31mFailed: 0[0m  [35mErrors: 0[0m  [2mSkipped: 0  Avg attempts: 1.0[0m
+[2m    Saved → gemini-3.6-flash_results.json[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK (no-trace)  [LLM=gemini-2.5-pro]  1 missions
+════════════════════════════════════════════════════════════[0m
+
+[1m[34m[1/1][0m [1m08_construction_lift[0m
+[36m    Attempt 1/3: waiting for LLM (gemini-2.5-pro)…[0m
+[2m      LLM responded in 49.8s (2210 chars)[0m
+[36m    Attempt 1/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 2/3: waiting for LLM (gemini-2.5-pro)…[0m
+[2m      LLM responded in 51.0s (2210 chars)[0m
+[36m    Attempt 2/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 3/3: waiting for LLM (gemini-2.5-pro)…[0m
+[2m      LLM responded in 41.6s (2210 chars)[0m
+[36m    Attempt 3/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+  Status   : [1m[31mFAILED [0m  (142.6s)
+  Attempts : 3/3
+  [31mFailing  :[0m
+    [31m✗[0m A[] (crane.Lift imply survey_done)
+    [31m✗[0m A[] (crane.Lift imply crane.t <= 5)
+  [32mPassing  :[0m
+    [32m✓[0m E<> drone.Done
+    [32m✓[0m E<> crane.Done
+  [2mProgress :   #1:2fail/2pass REG  →  #2:2fail/2pass REG  →  #3:2fail/2pass REG[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK SUMMARY (no-trace)
+════════════════════════════════════════════════════════════[0m
+  [1mMission                       Status     Queries   Attempts    GT?     [0m
+  ───────────────────────────────────────────────────────────────
+  08_construction_lift          [1m[31mFAILED [0m  2/4 pass    3           [2mno[0m
+
+  [1mTotal:[0m 1  [32mFixed: 0[0m  [33mPartial: 0[0m  [31mFailed: 1[0m  [35mErrors: 0[0m  [2mSkipped: 0  Avg attempts: 3.0[0m
+[2m    Saved → gemini-2.5-pro_results.json[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK (no-trace)  [LLM=qwen3.5:9b]  1 missions
+════════════════════════════════════════════════════════════[0m
+
+[1m[34m[1/1][0m [1m08_construction_lift[0m
+[36m    Attempt 1/3: waiting for LLM (qwen3.5:9b)…[0m
+[2m      LLM responded in 20.9s (2307 chars)[0m
+[36m    Attempt 1/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 2 failing / 2 passing[0m
+[36m    Attempt 2/3: waiting for LLM (qwen3.5:9b)…[0m
+[2m      LLM responded in 13.2s (2156 chars)[0m
+[36m    Attempt 2/3: verifying with verifyta…[0m
+[2m      Verified in 0.0s — 1 failing / 3 passing[0m
+[36m    Attempt 3/3: waiting for LLM (qwen3.5:9b)…[0m
+[2m      LLM responded in 16.3s (2254 chars)[0m
+[33m⚠     LLM output is not well-formed XML — invalid, discarding attempt (raw saved to attempt3_raw.txt)[0m
+  Status   : [1m[33mPARTIAL[0m  (50.6s)
+  Attempts : 3/3
+  [31mFailing  :[0m
+    [31m✗[0m A[] (crane.Lift imply survey_done)
+  [32mPassing  :[0m
+    [32m✓[0m A[] (crane.Lift imply crane.t <= 5)
+    [32m✓[0m E<> drone.Done
+    [32m✓[0m E<> crane.Done
+  [2mProgress :   #1:2fail/2pass REG  →  #2:1fail/3pass  →  #3:1fail/3pass[0m
+[2m    Saved → results_no_trace/qwen3.5-9b/08_construction_lift/[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  BENCHMARK SUMMARY (no-trace)
+════════════════════════════════════════════════════════════[0m
+  [1mMission                       Status     Queries   Attempts    GT?     [0m
+  ───────────────────────────────────────────────────────────────
+  08_construction_lift          [1m[33mPARTIAL[0m  3/4 pass    3           [2mno[0m
+
+  [1mTotal:[0m 1  [32mFixed: 0[0m  [33mPartial: 1[0m  [31mFailed: 0[0m  [35mErrors: 0[0m  [2mSkipped: 0  Avg attempts: 3.0[0m
+[2m    Saved → qwen3.5-9b_results.json[0m
+
+[1m[34m════════════════════════════════════════════════════════════
+  CROSS-MODEL SUMMARY (no-trace)
+════════════════════════════════════════════════════════════[0m
+                          gpt-5.1              gpt-5-mini           gpt-5-nano           gpt-4o               claude-sonnet-4-5    claude-haiku-4-5     grok-code-fast       grok-3-mini          deepseek-reasoner    gemini-3.6-flash     gemini-2.5-pro       qwen3.5:9b         
+  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  08_construction_lift    [31mFAILED [0m     [32mFIXED  [0m     [32mFIXED  [0m     [31mFAILED [0m     [31mFAILED [0m     [31mFAILED [0m     [31mFAILED [0m     [31mFAILED [0m     [32mFIXED  [0m     [32mFIXED  [0m     [31mFAILED [0m     [33mPARTIAL[0m   
+
+  FIXED / total           [1m0/1[0m                  [1m1/1[0m                  [1m1/1[0m                  [1m0/1[0m                  [1m0/1[0m                  [1m0/1[0m                  [1m0/1[0m                  [1m0/1[0m                  [1m1/1[0m                  [1m1/1[0m                  [1m0/1[0m                  [1m0/1[0m                
+[36m  Combined results → [1mall_models_combined.json[0m[0m
+EXIT 0

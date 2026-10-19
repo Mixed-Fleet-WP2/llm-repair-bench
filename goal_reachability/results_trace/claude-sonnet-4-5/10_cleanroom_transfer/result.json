@@ -1,0 +1,57 @@
+{
+  "mission": "10_cleanroom_transfer",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] (courier.CleanRoom imply sterile_ready)",
+    "A[] not (sterilizer.Airlock && courier.Airlock)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FAILED",
+  "attempts_used": 3,
+  "final_failing": [
+    "A[] (courier.CleanRoom imply sterile_ready)",
+    "A[] not (sterilizer.Airlock && courier.Airlock)"
+  ],
+  "final_passing": [
+    "E<> sterilizer.Done",
+    "E<> courier.Done"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [
+        3,
+        4
+      ],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [
+        3,
+        4
+      ],
+      "llm_valid": true
+    },
+    {
+      "attempt": 3,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [
+        3,
+        4
+      ],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 26.93797516822815
+}

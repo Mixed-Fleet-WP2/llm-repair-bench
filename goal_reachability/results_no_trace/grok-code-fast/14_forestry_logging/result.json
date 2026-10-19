@@ -1,0 +1,48 @@
+{
+  "mission": "14_forestry_logging",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] not (feller.CutTree && hauler.CutZone)",
+    "feller.TreeFelled --> hauler.Collect"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "PARTIAL",
+  "attempts_used": 3,
+  "final_failing": [
+    "A[] not (feller.CutTree && hauler.CutZone)"
+  ],
+  "final_passing": [
+    "feller.TreeFelled --> hauler.Collect",
+    "E<> feller.TreeFelled",
+    "E<> hauler.Collect"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 2,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": true
+    },
+    {
+      "attempt": 3,
+      "n_failing": 1,
+      "n_passing": 3,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "int() argument must be a string, a bytes-like object or a real number, not 'NoneType'",
+  "elapsed_s": 56.45059132575989
+}

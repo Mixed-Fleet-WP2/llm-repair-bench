@@ -1,0 +1,48 @@
+{
+  "domain": "data-center robotics",
+  "robots": [
+    "ThermalInspector",
+    "ServiceRobot"
+  ],
+  "faults": [
+    {
+      "id": "F1",
+      "category": "missing_guard",
+      "property": "P1",
+      "expected": "FAIL"
+    },
+    {
+      "id": "F2",
+      "category": "conditional_response_liveness",
+      "property": "P2",
+      "expected": "FAIL"
+    }
+  ],
+  "expected_verdicts": {
+    "P1": "FAIL",
+    "P2": "FAIL"
+  },
+  "goal_reachability": {
+    "goal_locations": {
+      "inspector": [
+        "inspector.RackCleared"
+      ],
+      "service": [
+        "service.ReplaceUnit"
+      ]
+    },
+    "queries": [
+      {
+        "formula": "E<> inspector.RackCleared",
+        "comment": "Goal preserved: inspector can still reach RackCleared",
+        "expected": "PASS"
+      },
+      {
+        "formula": "E<> service.ReplaceUnit",
+        "comment": "Goal preserved: service can still reach ReplaceUnit",
+        "expected": "PASS"
+      }
+    ],
+    "rejected_not_reachable_in_faulty": []
+  }
+}

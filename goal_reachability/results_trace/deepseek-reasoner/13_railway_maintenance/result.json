@@ -1,0 +1,33 @@
+{
+  "mission": "13_railway_maintenance",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] (repair.Position imply defect_confirmed)",
+    "A[] (repair.Repair imply track_closed)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FIXED",
+  "attempts_used": 1,
+  "final_failing": [],
+  "final_passing": [
+    "A[] (repair.Position imply defect_confirmed)",
+    "A[] (repair.Repair imply track_closed)",
+    "E<> inspector.ConfirmDefect",
+    "E<> repair.Done"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 0,
+      "n_passing": 4,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 81.36697673797607
+}

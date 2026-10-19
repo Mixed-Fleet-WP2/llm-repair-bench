@@ -1,0 +1,33 @@
+{
+  "mission": "27_parcel_sorting",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] (transfer.LoadTray imply tray_count <= TRAY_MAX)",
+    "sorter.BatchSorted --> transfer.Transfer"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FIXED",
+  "attempts_used": 1,
+  "final_failing": [],
+  "final_passing": [
+    "A[] (transfer.LoadTray imply tray_count <= TRAY_MAX)",
+    "sorter.BatchSorted --> transfer.Transfer",
+    "E<> sorter.BatchSorted",
+    "E<> transfer.Transfer"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 0,
+      "n_passing": 4,
+      "regressions": [],
+      "llm_valid": true
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 19.603570699691772
+}

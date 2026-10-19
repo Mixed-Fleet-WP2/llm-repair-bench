@@ -1,0 +1,78 @@
+{
+  "mission": "08_construction_lift",
+  "n_queries": 4,
+  "initial_failing": [
+    "A[] (crane.Lift imply survey_done)",
+    "A[] (crane.Lift imply crane.t <= 5)"
+  ],
+  "initial_passing": [
+    3,
+    4
+  ],
+  "status": "FAILED",
+  "attempts_used": 3,
+  "final_failing": [
+    "A[] (crane.Lift imply survey_done)",
+    "A[] (crane.Lift imply crane.t <= 5)"
+  ],
+  "final_passing": [
+    "E<> drone.Done",
+    "E<> crane.Done"
+  ],
+  "has_ground_truth": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [
+        3,
+        4
+      ],
+      "llm_valid": true,
+      "usage": {
+        "served_model": "grok-4.3",
+        "input_tokens": 2922,
+        "output_tokens": 2337,
+        "reasoning_tokens": 1621,
+        "cached_input_tokens": 2880
+      }
+    },
+    {
+      "attempt": 2,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [
+        3,
+        4
+      ],
+      "llm_valid": true,
+      "usage": {
+        "served_model": "grok-4.3",
+        "input_tokens": 2922,
+        "output_tokens": 2546,
+        "reasoning_tokens": 1830,
+        "cached_input_tokens": 2880
+      }
+    },
+    {
+      "attempt": 3,
+      "n_failing": 2,
+      "n_passing": 2,
+      "regressions": [
+        3,
+        4
+      ],
+      "llm_valid": true,
+      "usage": {
+        "served_model": "grok-4.3",
+        "input_tokens": 2922,
+        "output_tokens": 2417,
+        "reasoning_tokens": 1701,
+        "cached_input_tokens": 2880
+      }
+    }
+  ],
+  "error_msg": "",
+  "elapsed_s": 57.94308137893677
+}
